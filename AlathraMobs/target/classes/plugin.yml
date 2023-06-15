@@ -1,0 +1,12 @@
+name: AlathraMobs
+main: me.ShermansWorld.alathramobs.AlathraMobs
+version: 1.0
+api-version: 1.19
+author: ShermansWorld
+softdepend: [MythicMobs, RTUBiomeLib]
+description: A random spawn system for MythicMobs with Terra hooks
+commands:
+  alathramobs:
+    description: reload config
+  showbiome:
+    description: show biome at player location
