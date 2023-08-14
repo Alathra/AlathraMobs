@@ -15,4 +15,12 @@ ElephantTimerInterval: 480
 
 DeerTimerInterval: 480
 
+FireGiantTimerInterval: 7200
+
+IceGiantTimerInterval: 10800
+
+StrongGiantTimerInterval: 7200
+
+LegendaryCodTimerInterval: 300
+
 PackExtension: "terra:overworld/overworld/"
