@@ -16,6 +16,14 @@ public class Config {
 	
 	public static int deerTimerInterval = 480;
 	
+	public static int fireGiantTimerInterval = 7200;
+	
+	public static int iceGiantTimerInterval = 10800;
+	
+	public static int strongGiantTimerInterval = 7200;
+	
+	public static int legendaryCodTimerInterval = 300;
+	
 	// other settings
 	public static String packExtension = "terra:overworld/overworld/";
 	
@@ -30,6 +38,12 @@ public class Config {
 		sharkTimerInterval = config.getInt("SharkTimerInterval");
 		elephantTimerInterval = config.getInt("ElephantTimerInterval");
 		deerTimerInterval = config.getInt("DeerTimerInterval");
+		
+		fireGiantTimerInterval = config.getInt("FireGiantTimerInterval");
+		iceGiantTimerInterval = config.getInt("IceGiantTimerInterval");
+		strongGiantTimerInterval = config.getInt("StrongGiantTimerInterval");
+		
+		legendaryCodTimerInterval = config.getInt("LegendaryCodTimerInterval");
 		
 		packExtension = config.getString("PackExtension");
 		

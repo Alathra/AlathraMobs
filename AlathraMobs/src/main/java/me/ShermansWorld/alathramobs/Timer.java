@@ -24,9 +24,21 @@ public class Timer {
 	private BukkitTask elephantTimer;
 	private ArrayList<Player> validElephantSpawnpointPlayers = new ArrayList<Player>();
 	private ArrayList<Boolean> validElephantSpawnpointIsJungle = new ArrayList<Boolean>();
-	
+
 	private BukkitTask deerTimer;
 	private ArrayList<Player> validDeerSpawnpointPlayers = new ArrayList<Player>();
+
+	private BukkitTask fireGiantTimer;
+	private ArrayList<Player> validFireGiantSpawnpointPlayers = new ArrayList<Player>();
+
+	private BukkitTask iceGiantTimer;
+	private ArrayList<Player> validIceGiantSpawnpointPlayers = new ArrayList<Player>();
+
+	private BukkitTask strongGiantTimer;
+	private ArrayList<Player> validStrongGiantSpawnpointPlayers = new ArrayList<Player>();
+
+	private BukkitTask legendaryCodTimer;
+	private ArrayList<Player> validLegendaryCodSpawnpointPlayers = new ArrayList<Player>();
 
 	public void startSharkTimer() {
 		sharkTimer = new BukkitRunnable() {
@@ -82,11 +94,9 @@ public class Timer {
 
 				if (hammerheadSharkSpawn) {
 					if (validSharkSpawnpointIsTropical.get(randIdx)) {
-						MobsUtil.spawnWaterMobNearPlayer(10, validSharkSpawnpointPlayers.get(randIdx),
-								"MSO_Shark");
+						MobsUtil.spawnWaterMobNearPlayer(10, validSharkSpawnpointPlayers.get(randIdx), "MSO_Shark");
 					} else {
-						MobsUtil.spawnWaterMobNearPlayer(10, validSharkSpawnpointPlayers.get(randIdx),
-								"MSO_Shark_2");
+						MobsUtil.spawnWaterMobNearPlayer(10, validSharkSpawnpointPlayers.get(randIdx), "MSO_Shark_2");
 					}
 				} else if (sharkSpawn) {
 					if (validSharkSpawnpointIsTropical.get(randIdx)) {
@@ -135,8 +145,7 @@ public class Timer {
 				int randIdx = rand.nextInt(validElephantSpawnpointPlayers.size());
 
 				if (validElephantSpawnpointIsJungle.get(randIdx)) {
-					MobsUtil.spawnLandMobNearPlayer(10, validElephantSpawnpointPlayers.get(randIdx),
-							"asianelephant");
+					MobsUtil.spawnLandMobNearPlayer(10, validElephantSpawnpointPlayers.get(randIdx), "asianelephant");
 				} else {
 					MobsUtil.spawnLandMobNearPlayer(10, validElephantSpawnpointPlayers.get(randIdx), "elephant");
 				}
@@ -149,7 +158,7 @@ public class Timer {
 	public void stopElephantTimer() {
 		elephantTimer.cancel();
 	}
-	
+
 	public void startDeerTimer() {
 		deerTimer = new BukkitRunnable() {
 			public void run() {
@@ -178,8 +187,7 @@ public class Timer {
 
 				int randIdx = rand.nextInt(validDeerSpawnpointPlayers.size());
 				if (maleDeerSpawn) {
-					MobsUtil.spawnLandMobNearPlayer(10, validDeerSpawnpointPlayers.get(randIdx),
-							"deer_male");
+					MobsUtil.spawnLandMobNearPlayer(10, validDeerSpawnpointPlayers.get(randIdx), "deer_male");
 				} else {
 					MobsUtil.spawnLandMobNearPlayer(10, validDeerSpawnpointPlayers.get(randIdx), "deer_female");
 				}
@@ -188,9 +196,133 @@ public class Timer {
 		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.deerTimerInterval * 20);
 
 	}
-	
+
 	public void stopDeerTimer() {
 		deerTimer.cancel();
+	}
+
+	public void startFireGiantTimer() {
+		fireGiantTimer = new BukkitRunnable() {
+			public void run() {
+				validFireGiantSpawnpointPlayers.clear();
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					if (p.getWorld().getName().contentEquals("World-o")) {
+						if (BiomeUtil.getFireGiantBiomes().contains(BiomeUtil.getBiomeName(p))
+								&& !TownyUtil.isLocationInTown(p.getLocation())) {
+							if (!Util.isLocationUnderground(p.getLocation())) {
+								validFireGiantSpawnpointPlayers.add(p);
+							}
+						}
+					}
+				}
+
+				if (validFireGiantSpawnpointPlayers.isEmpty()) {
+					return;
+				}
+
+				int randIdx = rand.nextInt(validFireGiantSpawnpointPlayers.size());
+				MobsUtil.spawnLandMobNearPlayer(10, validFireGiantSpawnpointPlayers.get(randIdx), "Fire_Giant");
+
+			}
+		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.fireGiantTimerInterval * 20);
+
+	}
+
+	public void stopFireGiantTimer() {
+		fireGiantTimer.cancel();
+	}
+	
+	public void startIceGiantTimer() {
+		iceGiantTimer = new BukkitRunnable() {
+			public void run() {
+				validIceGiantSpawnpointPlayers.clear();
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					if (p.getWorld().getName().contentEquals("World-o")) {
+						if (BiomeUtil.getIceGiantBiomes().contains(BiomeUtil.getBiomeName(p))
+								&& !TownyUtil.isLocationInTown(p.getLocation())) {
+							if (!Util.isLocationUnderground(p.getLocation())) {
+								validIceGiantSpawnpointPlayers.add(p);
+							}
+						}
+					}
+				}
+
+				if (validIceGiantSpawnpointPlayers.isEmpty()) {
+					return;
+				}
+
+				int randIdx = rand.nextInt(validIceGiantSpawnpointPlayers.size());
+				MobsUtil.spawnLandMobNearPlayer(10, validIceGiantSpawnpointPlayers.get(randIdx), "Ice_Giant");
+
+			}
+		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.iceGiantTimerInterval * 20);
+
+	}
+
+	public void stopIceGiantTimer() {
+		iceGiantTimer.cancel();
+	}
+	
+	public void startStrongGiantTimer() {
+		strongGiantTimer = new BukkitRunnable() {
+			public void run() {
+				validStrongGiantSpawnpointPlayers.clear();
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					if (p.getWorld().getName().contentEquals("World-o")) {
+						if (BiomeUtil.getStrongGiantBiomes().contains(BiomeUtil.getBiomeName(p))
+								&& !TownyUtil.isLocationInTown(p.getLocation())) {
+							if (!Util.isLocationUnderground(p.getLocation())) {
+								validStrongGiantSpawnpointPlayers.add(p);
+							}
+						}
+					}
+				}
+
+				if (validStrongGiantSpawnpointPlayers.isEmpty()) {
+					return;
+				}
+
+				int randIdx = rand.nextInt(validStrongGiantSpawnpointPlayers.size());
+				MobsUtil.spawnLandMobNearPlayer(10, validStrongGiantSpawnpointPlayers.get(randIdx), "Strong_Giant");
+
+			}
+		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.strongGiantTimerInterval * 20);
+
+	}
+
+	public void stopStrongGiantTimer() {
+		strongGiantTimer.cancel();
+	}
+	
+	public void startLegedaryCodTimer() {
+		legendaryCodTimer = new BukkitRunnable() {
+			public void run() {
+				validLegendaryCodSpawnpointPlayers.clear();
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					if (p.getWorld().getName().contentEquals("World-o")) {
+						if (BiomeUtil.getLegendaryCodBiomes().contains(BiomeUtil.getBiomeName(p))
+								&& !TownyUtil.isLocationInTown(p.getLocation())) {
+							if (!Util.isLocationUnderground(p.getLocation())) {
+								validLegendaryCodSpawnpointPlayers.add(p);
+							}
+						}
+					}
+				}
+
+				if (validLegendaryCodSpawnpointPlayers.isEmpty()) {
+					return;
+				}
+
+				int randIdx = rand.nextInt(validLegendaryCodSpawnpointPlayers.size());
+				MobsUtil.spawnWaterMobNearPlayer(10, validLegendaryCodSpawnpointPlayers.get(randIdx), "Legendary_Cod");
+
+			}
+		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.legendaryCodTimerInterval * 20);
+
+	}
+
+	public void stopLegedaryCodTimer() {
+		legendaryCodTimer.cancel();
 	}
 
 }

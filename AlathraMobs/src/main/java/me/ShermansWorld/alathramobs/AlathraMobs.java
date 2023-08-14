@@ -29,7 +29,10 @@ public class AlathraMobs extends JavaPlugin {
 		timer.startSharkTimer();
 		timer.startElephantTimer();
 		timer.startDeerTimer();
-		this.getServer().getPluginManager().registerEvents(new SpawnListener(), this);
+		timer.startFireGiantTimer();
+		timer.startIceGiantTimer();
+		timer.startStrongGiantTimer();
+		timer.startLegedaryCodTimer();
 	}
 
 }

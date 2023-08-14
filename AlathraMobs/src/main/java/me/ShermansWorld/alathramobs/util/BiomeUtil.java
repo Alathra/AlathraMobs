@@ -19,6 +19,10 @@ public class BiomeUtil {
 	private static ArrayList<String> elephantJungleBiomes = new ArrayList<String>();
 	private static ArrayList<String> elephantSavannaBiomes = new ArrayList<String>();
 	private static ArrayList<String> deerBiomes = new ArrayList<String>();
+	private static ArrayList<String> fireGiantBiomes = new ArrayList<String>();
+	private static ArrayList<String> iceGiantBiomes = new ArrayList<String>();
+	private static ArrayList<String> strongGiantBiomes = new ArrayList<String>();
+	private static ArrayList<String> legendaryCodBiomes = new ArrayList<String>();
 	
 	public static void init() {
 		// all biomes
@@ -161,6 +165,74 @@ public class BiomeUtil {
 		deerBiomes.add(Config.packExtension + "taiga");
 		deerBiomes.add(Config.packExtension + "taiga_hills");
 		
+		// fire giant biomes
+		fireGiantBiomes.add(Config.packExtension + "bamboo_jungle_hills");
+		fireGiantBiomes.add(Config.packExtension + "bamboo_jungle_mountains");
+		fireGiantBiomes.add(Config.packExtension + "chaparral");
+		fireGiantBiomes.add(Config.packExtension + "desert");
+		fireGiantBiomes.add(Config.packExtension + "dry_rocky_bumpy_mountains");
+		fireGiantBiomes.add(Config.packExtension + "dry_temperate_mountains");
+		fireGiantBiomes.add(Config.packExtension + "dry_wild_highlands");
+		fireGiantBiomes.add(Config.packExtension + "eucalyptus_forest");
+		fireGiantBiomes.add(Config.packExtension + "jungle_hills");
+		fireGiantBiomes.add(Config.packExtension + "jungle_mountains");
+		fireGiantBiomes.add(Config.packExtension + "oak_savanna");
+		fireGiantBiomes.add(Config.packExtension + "palm_beach");
+		fireGiantBiomes.add(Config.packExtension + "palm_forest");
+		fireGiantBiomes.add(Config.packExtension + "rainforest_hills");
+		fireGiantBiomes.add(Config.packExtension + "swamp");
+		fireGiantBiomes.add(Config.packExtension + "wild_bumpy_mountains");
+		fireGiantBiomes.add(Config.packExtension + "xeric_low_hills");
+		fireGiantBiomes.add(Config.packExtension + "xeric_mountains");
+		
+		// ice giant biomes
+		iceGiantBiomes.add(Config.packExtension + "dry_temperate_white_mountains");
+		iceGiantBiomes.add(Config.packExtension + "evergreen_forest");
+		iceGiantBiomes.add(Config.packExtension + "frozen_marsh");
+		iceGiantBiomes.add(Config.packExtension + "ice_spikes");
+		iceGiantBiomes.add(Config.packExtension + "moorland");
+		iceGiantBiomes.add(Config.packExtension + "mountains");
+		iceGiantBiomes.add(Config.packExtension + "mushroom_hills");
+		iceGiantBiomes.add(Config.packExtension + "redwood_forest_hills");
+		iceGiantBiomes.add(Config.packExtension + "salt_flats");
+		iceGiantBiomes.add(Config.packExtension + "snowy_meadow");
+		iceGiantBiomes.add(Config.packExtension + "snowy_plains");
+		iceGiantBiomes.add(Config.packExtension + "snowy_terraced_mountains");
+		iceGiantBiomes.add(Config.packExtension + "steppe");
+		iceGiantBiomes.add(Config.packExtension + "taiga");
+		iceGiantBiomes.add(Config.packExtension + "taiga_hills");
+		iceGiantBiomes.add(Config.packExtension + "tundra_hills");
+		
+		// strong giant biomes
+		strongGiantBiomes.add(Config.packExtension + "birch_forest_hills");
+		strongGiantBiomes.add(Config.packExtension + "dark_forest");
+		strongGiantBiomes.add(Config.packExtension + "flowering_forest");
+		strongGiantBiomes.add(Config.packExtension + "flowering_forest_hills");
+		strongGiantBiomes.add(Config.packExtension + "forest");
+		strongGiantBiomes.add(Config.packExtension + "forest_hills");
+		strongGiantBiomes.add(Config.packExtension + "highlands");
+		strongGiantBiomes.add(Config.packExtension + "large_monsoon_mountains");
+		strongGiantBiomes.add(Config.packExtension + "plains");
+		strongGiantBiomes.add(Config.packExtension + "prairie");
+		strongGiantBiomes.add(Config.packExtension + "sakura_mountains");
+		strongGiantBiomes.add(Config.packExtension + "shrublands");
+		strongGiantBiomes.add(Config.packExtension + "sunflower_plains");
+		strongGiantBiomes.add(Config.packExtension + "temperate_mountains");
+		
+		// legendary cod biomes
+		legendaryCodBiomes.add(Config.packExtension + "cold_deep_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "cold_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "coral_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "deep_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "dry_temperate_white_mountains_riverfrozen_beach");
+		legendaryCodBiomes.add(Config.packExtension + "frozen_deep_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "mountains_river");
+		legendaryCodBiomes.add(Config.packExtension + "ocean");
+		legendaryCodBiomes.add(Config.packExtension + "river");
+		legendaryCodBiomes.add(Config.packExtension + "subtropical_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "tropical_deep_ocean");
+		legendaryCodBiomes.add(Config.packExtension + "tropical_ocean");
+		
 	}
 	
 	public static String getBiomeName(Location location) {
@@ -201,5 +273,21 @@ public class BiomeUtil {
 	
 	public static ArrayList<String> getDeerBiomes() {
 		return deerBiomes;
+	}
+	
+	public static ArrayList<String> getFireGiantBiomes() {
+		return fireGiantBiomes;
+	}
+	
+	public static ArrayList<String> getIceGiantBiomes() {
+		return iceGiantBiomes;
+	}
+	
+	public static ArrayList<String> getStrongGiantBiomes() {
+		return strongGiantBiomes;
+	}
+	
+	public static ArrayList<String> getLegendaryCodBiomes() {
+		return legendaryCodBiomes;
 	}
 }

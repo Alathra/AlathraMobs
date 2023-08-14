@@ -88,7 +88,14 @@ public class MobsUtil {
 		}
 
 		// spawn mob
-		player.sendMessage(Util.color("&4&lA shark has spawned nearby"));
+		switch (mob) {
+		case "Legendary_Cod":
+			player.sendMessage(Util.color("&a&lA Legendary Cod has spawned nearby"));
+			break;
+		default:
+			player.sendMessage(Util.color("&4&lA shark has spawned nearby"));
+			break;
+		}
 		return spawnMob(mob, spawnLocation);
 
 	}
@@ -146,6 +153,15 @@ public class MobsUtil {
 			break;
 		case "deer_female":
 			player.sendMessage(Util.color("&e&lA deer has spawned nearby"));
+			break;
+		case "Fire_Giant":
+			player.sendMessage(Util.color("&4&lA FIRE GIANT has spawned nearby! Oh no..."));
+			break;
+		case "Ice_Giant":
+			player.sendMessage(Util.color("&4&lAn ICE GIANT has spawned nearby! Oh no..."));
+			break;
+		case "Strong_Giant":
+			player.sendMessage(Util.color("&4&lA STRONG GIANT has spawned nearby! Oh no..."));
 			break;
 		default:
 			player.sendMessage(Util.color("&e&lA special mob has spawned nearby"));
