@@ -23,6 +23,7 @@ public class BiomeUtil {
 	private static ArrayList<String> iceGiantBiomes = new ArrayList<String>();
 	private static ArrayList<String> strongGiantBiomes = new ArrayList<String>();
 	private static ArrayList<String> legendaryCodBiomes = new ArrayList<String>();
+	private static ArrayList<String> giantSquidBiomes = new ArrayList<String>();
 	
 	public static void init() {
 		// all biomes
@@ -233,6 +234,13 @@ public class BiomeUtil {
 		legendaryCodBiomes.add(Config.packExtension + "tropical_deep_ocean");
 		legendaryCodBiomes.add(Config.packExtension + "tropical_ocean");
 		
+		// giant squid biomes
+		giantSquidBiomes.add(Config.packExtension + "cold_deep_ocean");
+		giantSquidBiomes.add(Config.packExtension + "cold_ocean");
+		giantSquidBiomes.add(Config.packExtension + "deep_ocean");
+		giantSquidBiomes.add(Config.packExtension + "frozen_deep_ocean");
+		giantSquidBiomes.add(Config.packExtension + "iceberg_ocean");
+		
 	}
 	
 	public static String getBiomeName(Location location) {
@@ -289,5 +297,9 @@ public class BiomeUtil {
 	
 	public static ArrayList<String> getLegendaryCodBiomes() {
 		return legendaryCodBiomes;
+	}
+	
+	public static ArrayList<String> getGiantSquidBiomes() {
+		return giantSquidBiomes;
 	}
 }

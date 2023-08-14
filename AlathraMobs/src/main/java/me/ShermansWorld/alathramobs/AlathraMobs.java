@@ -15,7 +15,7 @@ public class AlathraMobs extends JavaPlugin {
 		return instance;
 	}
 	
-	public static Timer timer = new Timer();
+	public static Timers timer = new Timers();
 	
 	@Override
 	public void onEnable() {
@@ -33,6 +33,7 @@ public class AlathraMobs extends JavaPlugin {
 		timer.startIceGiantTimer();
 		timer.startStrongGiantTimer();
 		timer.startLegedaryCodTimer();
+		timer.startGiantSquidTimer();
 	}
 
 }

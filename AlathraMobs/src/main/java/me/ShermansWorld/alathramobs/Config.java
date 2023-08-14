@@ -24,6 +24,8 @@ public class Config {
 	
 	public static int legendaryCodTimerInterval = 300;
 	
+	public static int giantSquidTimerInterval = 1800;
+	
 	// other settings
 	public static String packExtension = "terra:overworld/overworld/";
 	
@@ -44,6 +46,8 @@ public class Config {
 		strongGiantTimerInterval = config.getInt("StrongGiantTimerInterval");
 		
 		legendaryCodTimerInterval = config.getInt("LegendaryCodTimerInterval");
+		
+		giantSquidTimerInterval = config.getInt("GiantSquidTimerInterval");
 		
 		packExtension = config.getString("PackExtension");
 		

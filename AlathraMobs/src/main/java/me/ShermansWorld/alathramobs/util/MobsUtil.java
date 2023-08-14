@@ -92,6 +92,9 @@ public class MobsUtil {
 		case "Legendary_Cod":
 			player.sendMessage(Util.color("&a&lA Legendary Cod has spawned nearby"));
 			break;
+		case "MSO_GiantSquid":
+			player.sendMessage(Util.color("&a&lA Giant Squid has spawned nearby"));
+			break;
 		default:
 			player.sendMessage(Util.color("&4&lA shark has spawned nearby"));
 			break;
