@@ -1,57 +1,56 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>me.ShermansWorld</groupId>
-  <artifactId>AlathraMobs</artifactId>
-  <version>1.1</version>
-  
-  <name>AlathraMobs</name>
-  <url>http://maven.apache.org</url>
-  
-  <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target><project>
-  </project></properties>
-  
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>me.ShermansWorld</groupId>
+	<artifactId>AlathraMobs</artifactId>
+	<version>1.1.1</version>
+	<name>AlathraMobs</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+	</properties>
 	<repositories>
-        <!-- This adds the Spigot Maven repository to the build -->
-        <repository>
-            <id>papermc</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
-        <repository>
+		<!-- This adds the Spigot Maven repository to the build -->
+		<repository>
+			<id>papermc</id>
+			<url>https://papermc.io/repo/repository/maven-public/</url>
+		</repository>
+		<repository>
 			<id>nexus</id>
 			<name>Lumine Releases</name>
 			<url>https://mvn.lumine.io/repository/maven-public/</url>
 		</repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-  </repositories>
-  <dependencies>
-        <!--This adds the Spigot API artifact to the build -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.19-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<!--This adds the Spigot API artifact to the build -->
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.20-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>io.lumine</groupId>
 			<artifactId>Mythic-Dist</artifactId>
 			<version>5.2.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.IPECTER.RTUBiomeLib</groupId>
+			<groupId>com.github.ipecter</groupId>
 			<artifactId>RTUBiomeLib</artifactId>
-			<version>1.4.2</version>
+			<version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/RTUBiomeLib-1.5.2.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.github.LlmDl</groupId>
 			<artifactId>Towny</artifactId>
-			<version>0.98.3.3</version>
+			<version>0.98.6.0</version>
 		</dependency>
-  </dependencies>  
+	</dependencies>
 </project>
