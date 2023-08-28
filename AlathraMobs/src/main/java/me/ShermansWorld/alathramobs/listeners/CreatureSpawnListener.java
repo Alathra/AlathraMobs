@@ -1,5 +1,6 @@
 package me.ShermansWorld.alathramobs.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,9 @@ public class CreatureSpawnListener implements Listener {
 	@EventHandler
 	public static void onCreatureSpawn(CreatureSpawnEvent e) {
 		if (e.getSpawnReason() != SpawnReason.NATURAL) {
+			return;
+		}
+		if (e.getEntity().getWorld() != Bukkit.getWorld("World-o")) {
 			return;
 		}
 		Location loc = e.getEntity().getLocation();
