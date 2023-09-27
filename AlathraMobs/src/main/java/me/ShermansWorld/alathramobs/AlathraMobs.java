@@ -1,12 +1,9 @@
 package me.ShermansWorld.alathramobs;
 
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.ShermansWorld.alathramobs.commands.AlathraMobsCommands;
 import me.ShermansWorld.alathramobs.commands.ShowBiomeCommands;
-import me.ShermansWorld.alathramobs.listeners.CreatureSpawnListener;
 import me.ShermansWorld.alathramobs.util.BiomeUtil;
 import me.ShermansWorld.alathramobs.util.MobsUtil;
 
@@ -37,7 +34,6 @@ public class AlathraMobs extends JavaPlugin {
 		timer.startStrongGiantTimer();
 		timer.startLegedaryCodTimer();
 		timer.startGiantSquidTimer();
-		this.getServer().getPluginManager().registerEvents((Listener) new CreatureSpawnListener(), (Plugin) this);
 	}
 
 }
