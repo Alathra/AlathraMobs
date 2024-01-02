@@ -157,14 +157,14 @@ public class MobsUtil {
 		case "deer_female":
 			player.sendMessage(Util.color("&e&lA deer has spawned nearby"));
 			break;
-		case "Fire_Giant":
-			player.sendMessage(Util.color("&4&lA FIRE GIANT has spawned nearby! Oh no..."));
+		case "Fire_Giant_Spawner":
+			player.sendMessage(Util.color("&4&lA Fire Giant Conjurer has spawned nearby! Oh no..."));
 			break;
-		case "Ice_Giant":
-			player.sendMessage(Util.color("&4&lAn ICE GIANT has spawned nearby! Oh no..."));
+		case "Ice_Giant_Spawner":
+			player.sendMessage(Util.color("&4&lAn Ice Giant Conjurer has spawned nearby! Oh no..."));
 			break;
-		case "Strong_Giant":
-			player.sendMessage(Util.color("&4&lA STRONG GIANT has spawned nearby! Oh no..."));
+		case "Strong_Giant_Spawner":
+			player.sendMessage(Util.color("&4&lA Strong Giant Conjurer has spawned nearby! Oh no..."));
 			break;
 		default:
 			player.sendMessage(Util.color("&e&lA special mob has spawned nearby"));

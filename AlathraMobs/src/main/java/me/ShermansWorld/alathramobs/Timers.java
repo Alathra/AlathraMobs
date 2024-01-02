@@ -225,7 +225,7 @@ public class Timers {
 				}
 
 				int randIdx = rand.nextInt(validFireGiantSpawnpointPlayers.size());
-				MobsUtil.spawnLandMobNearPlayer(10, validFireGiantSpawnpointPlayers.get(randIdx), "Fire_Giant");
+				MobsUtil.spawnLandMobNearPlayer(10, validFireGiantSpawnpointPlayers.get(randIdx), "Fire_Giant_Spawner");
 
 			}
 		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.fireGiantTimerInterval * 20);
@@ -256,7 +256,7 @@ public class Timers {
 				}
 
 				int randIdx = rand.nextInt(validIceGiantSpawnpointPlayers.size());
-				MobsUtil.spawnLandMobNearPlayer(10, validIceGiantSpawnpointPlayers.get(randIdx), "Ice_Giant");
+				MobsUtil.spawnLandMobNearPlayer(10, validIceGiantSpawnpointPlayers.get(randIdx), "Ice_Giant_Spawner");
 
 			}
 		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.iceGiantTimerInterval * 20);
@@ -287,7 +287,7 @@ public class Timers {
 				}
 
 				int randIdx = rand.nextInt(validStrongGiantSpawnpointPlayers.size());
-				MobsUtil.spawnLandMobNearPlayer(10, validStrongGiantSpawnpointPlayers.get(randIdx), "Strong_Giant");
+				MobsUtil.spawnLandMobNearPlayer(10, validStrongGiantSpawnpointPlayers.get(randIdx), "Strong_Giant_Spawner");
 
 			}
 		}.runTaskTimer(AlathraMobs.getInstance(), 0L, Config.strongGiantTimerInterval * 20);
