@@ -42,11 +42,6 @@ public class ItemsListener implements Listener {
 				double clickedBlockY = e.getClickedBlock().getY();
 				double clickedBlockZ = e.getClickedBlock().getZ();
 
-				Location[] locations = new Location[4];
-				locations[0] = new Location();
-				locations[1] = new Location(e.getClickedBlock().getWorld(), clickedBlockX-1, clickedBlockY, clickedBlockZ);
-				locations[2] = new Location();
-				locations[3] = new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ-1);
 
 				HashMap<Location, Material> LocationMaterialPairs = new HashMap<>();
 				LocationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX+1, clickedBlockY, clickedBlockZ), Material.GOLD_BLOCK);
@@ -54,7 +49,7 @@ public class ItemsListener implements Listener {
 				LocationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ+1), Material.GOLD_BLOCK);
 				LocationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ-1), Material.GOLD_BLOCK);
 				LocationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+1, clickedBlockZ), Material.AIR);
-				LocationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+2, clickedBlockZ), Material.AIR)
+				LocationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+2, clickedBlockZ), Material.AIR);
 
 
 
