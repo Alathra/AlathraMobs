@@ -16,11 +16,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ItemsListener implements Listener {
+	/**
+	 * A list of players who've summoned shawn
+	 */
 	ArrayList<Player> shawnSummoners = new ArrayList<>();
 
 
 	/**
-	 * Handles shawn summoning
+	 * Handles shawn summoning, along with ensuring the associated structure is properly built
 	 * @param e
 	 */
 	@EventHandler
@@ -37,6 +40,7 @@ public class ItemsListener implements Listener {
 				// G
 				//
 				// G = Gold Block, C = Crying Obsidian
+				// Also makes there be atleast 2 air above the center block
 
 				double clickedBlockX = e.getClickedBlock().getX();
 				double clickedBlockY = e.getClickedBlock().getY();
@@ -53,11 +57,12 @@ public class ItemsListener implements Listener {
 
 
 
-				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL) { // holding wool
+				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL) { // holding white wool
 					ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 					if(item.getItemMeta()==null){
 						return;
 					}
+					// Looks for custom model data with a value of 301
 					if (item.getItemMeta().hasCustomModelData()) {
 						if (item.getItemMeta().getCustomModelData() == 301) {
 							if(shawnSummoners.contains(e.getPlayer()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
@@ -65,7 +70,7 @@ public class ItemsListener implements Listener {
 								e.setCancelled(true);
 								return;
 							}
-
+							// stops placing the wool without the structure
 							for(Map.Entry<Location, Material> locationMaterialEntry: LocationMaterialPairs.entrySet()){
 								if(locationMaterialEntry.getKey().getBlock().getType() != locationMaterialEntry.getValue()){
 									e.setCancelled(true);
@@ -87,17 +92,17 @@ public class ItemsListener implements Listener {
 							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 5);
 
 							Location shawnSummonLocation = e.getClickedBlock().getLocation();
-							shawnSummonLocation.setY(shawnSummonLocation.getBlockY()+1);
+							shawnSummonLocation.setY(shawnSummonLocation.getBlockY()+1); // summons Shawn 1 block above the center of the structure
 							MobsUtil.spawnMob("Nether_Sheep_Red", shawnSummonLocation);
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 5F);
 
-							shawnSummoners.add(e.getPlayer());
+							shawnSummoners.add(e.getPlayer()); //stops player from summoning multiple times a restart
 						}
 
 					}
 				}
-			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL) {
+			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL) { // cancels doing things with the wool in hand
 				 // holding wool
 				ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 				if(item.getItemMeta()==null){
