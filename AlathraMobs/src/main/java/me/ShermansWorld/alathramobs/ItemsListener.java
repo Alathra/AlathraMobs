@@ -1,6 +1,5 @@
 package me.ShermansWorld.alathramobs;
 
-import io.lumine.mythic.bukkit.MythicBukkit;
 import me.ShermansWorld.alathramobs.util.MobsUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
