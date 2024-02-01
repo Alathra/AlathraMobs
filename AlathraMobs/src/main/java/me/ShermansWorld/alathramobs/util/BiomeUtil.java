@@ -12,21 +12,9 @@ import me.ShermansWorld.alathramobs.Config;
 public class BiomeUtil {
 
 	private static ArrayList<String> biomes = new ArrayList<String>();
-	private static ArrayList<String> hammerheadSharkTemperateBiomes = new ArrayList<String>();
-	private static ArrayList<String> hammerheadSharkTropicalBiomes = new ArrayList<String>();
-	private static ArrayList<String> sharkTemperateBiomes = new ArrayList<String>();
-	private static ArrayList<String> sharkTropicalBiomes = new ArrayList<String>();
-	private static ArrayList<String> elephantJungleBiomes = new ArrayList<String>();
-	private static ArrayList<String> elephantSavannaBiomes = new ArrayList<String>();
-	private static ArrayList<String> deerBiomes = new ArrayList<String>();
 	private static ArrayList<String> fireGiantBiomes = new ArrayList<String>();
 	private static ArrayList<String> iceGiantBiomes = new ArrayList<String>();
 	private static ArrayList<String> strongGiantBiomes = new ArrayList<String>();
-	private static ArrayList<String> legendaryCodBiomes = new ArrayList<String>();
-	private static ArrayList<String> giantSquidBiomes = new ArrayList<String>();
-
-	// vanilla mobs
-	private static ArrayList<String> camelBiomes = new ArrayList<String>();
 
 	public static void init() {
 		// all biomes
@@ -113,62 +101,6 @@ public class BiomeUtil {
 		biomes.add(Config.packExtension + "xeric_low_hills");
 		biomes.add(Config.packExtension + "xeric_mountains ");
 
-		// hammerhead shark biomes
-		hammerheadSharkTemperateBiomes.add(Config.packExtension + "deep_ocean");
-		hammerheadSharkTemperateBiomes.add(Config.packExtension + "deep_ocean_trench");
-		hammerheadSharkTemperateBiomes.add(Config.packExtension + "ocean");
-		hammerheadSharkTemperateBiomes.add(Config.packExtension + "subtropical_ocean");
-
-		// tropical hammerhead shark biomes
-		hammerheadSharkTropicalBiomes.add(Config.packExtension + "coral_ocean");
-		hammerheadSharkTropicalBiomes.add(Config.packExtension + "tropical_ocean");
-		hammerheadSharkTropicalBiomes.add(Config.packExtension + "tropical_deep_ocean");
-
-		// shark biomes
-		sharkTemperateBiomes.add(Config.packExtension + "cold_deep_ocean");
-		sharkTemperateBiomes.add(Config.packExtension + "cold_ocean");
-		sharkTemperateBiomes.add(Config.packExtension + "deep_ocean");
-		sharkTemperateBiomes.add(Config.packExtension + "deep_ocean_trench");
-		sharkTemperateBiomes.add(Config.packExtension + "ocean");
-		sharkTemperateBiomes.add(Config.packExtension + "subtropical_ocean");
-
-		// tropical shark biomes
-		sharkTropicalBiomes.add(Config.packExtension + "coral_ocean");
-		sharkTropicalBiomes.add(Config.packExtension + "tropical_ocean");
-		sharkTropicalBiomes.add(Config.packExtension + "tropical_deep_ocean");
-
-		// jungle elephant biomes
-		elephantJungleBiomes.add(Config.packExtension + "bamboo_jungle_hills");
-		elephantJungleBiomes.add(Config.packExtension + "bamboo_jungle_mountains");
-		elephantJungleBiomes.add(Config.packExtension + "bamboo_ponds");
-		elephantJungleBiomes.add(Config.packExtension + "jungle_hills");
-		elephantJungleBiomes.add(Config.packExtension + "jungle_mountains");
-		elephantJungleBiomes.add(Config.packExtension + "large_monsoon_mountains");
-		elephantJungleBiomes.add(Config.packExtension + "wild_bumpy_mountains");
-		elephantJungleBiomes.add(Config.packExtension + "wild_highlands");
-
-		// savannah elephant biomes
-		elephantSavannaBiomes.add(Config.packExtension + "oak_savanna");
-		elephantSavannaBiomes.add(Config.packExtension + "plains");
-		elephantSavannaBiomes.add(Config.packExtension + "moorland");
-		elephantSavannaBiomes.add(Config.packExtension + "eucalyptus_forest");
-		elephantSavannaBiomes.add(Config.packExtension + "savanna");
-		elephantSavannaBiomes.add(Config.packExtension + "savanna_low_hills");
-		elephantSavannaBiomes.add(Config.packExtension + "low_chaparral");
-		elephantSavannaBiomes.add(Config.packExtension + "chaparral");
-
-		// deer biomes
-		deerBiomes.add(Config.packExtension + "birch_forest_hills");
-		deerBiomes.add(Config.packExtension + "evergreen_forest");
-		deerBiomes.add(Config.packExtension + "flowering_forest");
-		deerBiomes.add(Config.packExtension + "flowering_forest_hills");
-		deerBiomes.add(Config.packExtension + "forest");
-		deerBiomes.add(Config.packExtension + "forest_hills");
-		deerBiomes.add(Config.packExtension + "redwood_forest_hills");
-		deerBiomes.add(Config.packExtension + "sakura_mountains");
-		deerBiomes.add(Config.packExtension + "taiga");
-		deerBiomes.add(Config.packExtension + "taiga_hills");
-
 		// fire giant biomes
 		fireGiantBiomes.add(Config.packExtension + "bamboo_jungle_hills");
 		fireGiantBiomes.add(Config.packExtension + "bamboo_jungle_mountains");
@@ -223,33 +155,6 @@ public class BiomeUtil {
 		strongGiantBiomes.add(Config.packExtension + "sunflower_plains");
 		strongGiantBiomes.add(Config.packExtension + "temperate_mountains");
 
-		// legendary cod biomes
-		legendaryCodBiomes.add(Config.packExtension + "cold_deep_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "cold_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "coral_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "deep_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "dry_temperate_white_mountains_riverfrozen_beach");
-		legendaryCodBiomes.add(Config.packExtension + "frozen_deep_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "mountains_river");
-		legendaryCodBiomes.add(Config.packExtension + "ocean");
-		legendaryCodBiomes.add(Config.packExtension + "river");
-		legendaryCodBiomes.add(Config.packExtension + "subtropical_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "tropical_deep_ocean");
-		legendaryCodBiomes.add(Config.packExtension + "tropical_ocean");
-
-		// giant squid biomes
-		giantSquidBiomes.add(Config.packExtension + "cold_deep_ocean");
-		giantSquidBiomes.add(Config.packExtension + "cold_ocean");
-		giantSquidBiomes.add(Config.packExtension + "deep_ocean");
-		giantSquidBiomes.add(Config.packExtension + "frozen_deep_ocean");
-		giantSquidBiomes.add(Config.packExtension + "iceberg_ocean");
-
-		// camel biomes
-		camelBiomes.add(Config.packExtension + "badlands_buttes");
-		camelBiomes.add(Config.packExtension + "xeric_low_hills");
-		camelBiomes.add(Config.packExtension + "xeric_mountains");
-		camelBiomes.add(Config.packExtension + "desert");
-
 	}
 
 	public static String getBiomeName(Location location) {
@@ -264,34 +169,6 @@ public class BiomeUtil {
 		return biomes;
 	}
 
-	public static ArrayList<String> getHammerheadSharkTemperateBiomes() {
-		return hammerheadSharkTemperateBiomes;
-	}
-
-	public static ArrayList<String> getHammerheadSharkTropicalBiomes() {
-		return hammerheadSharkTropicalBiomes;
-	}
-
-	public static ArrayList<String> getSharkTemperateBiomes() {
-		return sharkTemperateBiomes;
-	}
-
-	public static ArrayList<String> getSharkTropicalBiomes() {
-		return sharkTropicalBiomes;
-	}
-
-	public static ArrayList<String> getElephantJungleBiomes() {
-		return elephantJungleBiomes;
-	}
-
-	public static ArrayList<String> getElephantSavannahBiomes() {
-		return elephantSavannaBiomes;
-	}
-
-	public static ArrayList<String> getDeerBiomes() {
-		return deerBiomes;
-	}
-
 	public static ArrayList<String> getFireGiantBiomes() {
 		return fireGiantBiomes;
 	}
@@ -303,16 +180,5 @@ public class BiomeUtil {
 	public static ArrayList<String> getStrongGiantBiomes() {
 		return strongGiantBiomes;
 	}
-
-	public static ArrayList<String> getLegendaryCodBiomes() {
-		return legendaryCodBiomes;
-	}
-
-	public static ArrayList<String> getGiantSquidBiomes() {
-		return giantSquidBiomes;
-	}
 	
-	public static ArrayList<String> getCamelBiomes() {
-		return camelBiomes;
-	}
 }
