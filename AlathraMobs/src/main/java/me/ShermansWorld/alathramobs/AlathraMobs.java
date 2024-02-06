@@ -30,14 +30,9 @@ public class AlathraMobs extends JavaPlugin {
 		pluginManager.registerEvents(new ItemsListener(), (Plugin) this);
 		MobsUtil.init();
 		BiomeUtil.init();
-		timer.startSharkTimer();
-		timer.startElephantTimer();
-		timer.startDeerTimer();
 		timer.startFireGiantTimer();
 		timer.startIceGiantTimer();
 		timer.startStrongGiantTimer();
-		timer.startLegedaryCodTimer();
-		timer.startGiantSquidTimer();
 	}
 
 }

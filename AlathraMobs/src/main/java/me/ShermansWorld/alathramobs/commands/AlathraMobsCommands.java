@@ -39,24 +39,14 @@ public class AlathraMobsCommands implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("reload")) {
 				AlathraMobs.getInstance().reloadConfig();
 				AlathraMobs.getInstance().saveDefaultConfig();
-				AlathraMobs.timer.stopSharkTimer();
-				AlathraMobs.timer.stopElephantTimer();
-				AlathraMobs.timer.stopDeerTimer();
 				AlathraMobs.timer.stopFireGiantTimer();
 				AlathraMobs.timer.stopIceGiantTimer();
 				AlathraMobs.timer.stopStrongGiantTimer();
-				AlathraMobs.timer.stopLegedaryCodTimer();
-				AlathraMobs.timer.startGiantSquidTimer();
 				Config.initConfigVals();
 				BiomeUtil.init();
-				AlathraMobs.timer.startSharkTimer();
-				AlathraMobs.timer.startElephantTimer();
-				AlathraMobs.timer.startDeerTimer();
 				AlathraMobs.timer.startFireGiantTimer();
 				AlathraMobs.timer.startIceGiantTimer();
 				AlathraMobs.timer.startStrongGiantTimer();
-				AlathraMobs.timer.startLegedaryCodTimer();
-				AlathraMobs.timer.startGiantSquidTimer();
 				if (isConsole) {
 					sender.sendMessage("config reloaded");
 				} else {

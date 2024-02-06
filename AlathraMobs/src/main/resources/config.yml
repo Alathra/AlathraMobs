@@ -2,27 +2,17 @@
 # |    AlathraMobs by ShermansWorld      |
 # ========================================
 
-config-version: 1
+config-version: 2
 
 # =====================================
 # |          MOB TIMER SETTINGS       |
 # =====================================
 
 # Mob spawn timer interval in seconds
-SharkTimerInterval: 60
-
-ElephantTimerInterval: 480
-
-DeerTimerInterval: 480
-
 FireGiantTimerInterval: 7200
 
 IceGiantTimerInterval: 10800
 
 StrongGiantTimerInterval: 7200
-
-LegendaryCodTimerInterval: 300
-
-GiantSquidTimerInterval: 1800
 
 PackExtension: "terra:overworld/overworld/"
