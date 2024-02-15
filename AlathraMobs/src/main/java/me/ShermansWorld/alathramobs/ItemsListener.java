@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class ItemsListener implements Listener {
 
 	/**
 	 * Handles shawn summoning, along with ensuring the associated structure is properly built
-	 * @param e
+	 * @param e the player interaction event
 	 */
 	@EventHandler
 	public void bossSummoningItemUse(PlayerInteractEvent e) {
@@ -57,14 +58,19 @@ public class ItemsListener implements Listener {
 
 
 
-				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL) { // holding white wool
+				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
+					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER ) { // holding white wool or paper
 					ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 					if(item.getItemMeta()==null){
 						return;
 					}
 					// Looks for custom model data with a value of 301
-					if (item.getItemMeta().hasCustomModelData()) {
-						if (item.getItemMeta().getCustomModelData() == 301) {
+					if (item.getItemMeta().hasCustomModelData() &&
+						((item.getItemMeta().getCustomModelData() == 301 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL)
+							//Covers White wool with model data 301, for compatibility with the original items
+						|| (item.getItemMeta().getCustomModelData() == 14802 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER)
+							//Covers Paper with model data 14802, for the new textured item
+						)) {
 							if(shawnSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
 								e.getPlayer().sendMessage("You have already summoned them today...");
 								e.setCancelled(true);
@@ -100,18 +106,24 @@ public class ItemsListener implements Listener {
 								Sound.ENTITY_SHEEP_HURT, 5F, 5F);
 
 							shawnSummoners.add(e.getPlayer().getUniqueId()); //stops player from summoning multiple times a restart
-						}
+
 
 					}
 				}
-			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL) { // cancels doing things with the wool in hand
+			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
+				|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER ) { // cancels doing things with the wool in hand
 				 // holding wool
 				ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 				if(item.getItemMeta()==null){
 					return;
 				}
 				if (item.getItemMeta().hasCustomModelData()) { // tried to place the specific item without the appropriate structure
-					if (item.getItemMeta().getCustomModelData() == 301) {
+
+					if ((item.getItemMeta().getCustomModelData() == 301 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL)
+						//Covers White wool with model data 301, for compatibility with the original items
+						|| (item.getItemMeta().getCustomModelData() == 14802 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER)
+						//Covers Paper with model data 14802, for the new textured item
+					) {
 						e.setCancelled(true);
 					}
 				}
