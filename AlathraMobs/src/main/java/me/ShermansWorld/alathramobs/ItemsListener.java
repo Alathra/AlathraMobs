@@ -2,7 +2,6 @@ package me.ShermansWorld.alathramobs;
 
 import me.ShermansWorld.alathramobs.util.MobsUtil;
 import org.bukkit.*;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -10,7 +9,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +19,8 @@ public class ItemsListener implements Listener {
 	 * A list of players who've summoned shawn
 	 */
 	ArrayList<UUID> shawnSummoners = new ArrayList<>();
+	ArrayList<UUID> blazeKingSummoners = new ArrayList<>();
+	HashMap<Location, Integer> blazeKingActiveAltarLocations = new HashMap<>();
 
 
 	/**
@@ -108,6 +108,21 @@ public class ItemsListener implements Listener {
 							shawnSummoners.add(e.getPlayer().getUniqueId()); //stops player from summoning multiple times a restart
 
 
+					}
+					else if (
+							item.getItemMeta().hasCustomModelData() &&
+							item.getItemMeta().getCustomModelData() == 14803 &&
+							item.getType() == Material.PAPER
+					){
+						if (blazeKingSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+							e.getPlayer().sendMessage("You have already sacrificed to the altar today...");
+							e.setCancelled(true);
+							return;
+						}
+
+						if (!blazeKingActiveAltarLocations.containsKey(e.getClickedBlock().getLocation())){
+							blazeKingActiveAltarLocations.put(e.getClickedBlock().getLocation(), 0);
+						}
 					}
 				}
 			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
