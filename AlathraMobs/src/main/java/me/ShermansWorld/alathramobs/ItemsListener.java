@@ -32,7 +32,7 @@ public class ItemsListener implements Listener {
 		if (e.getHand() == EquipmentSlot.HAND) {
 			if(e.getClickedBlock()==null) return;
 			if(e.getClickedBlock().getLocation().getWorld()==null) return;
-			if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.CRYING_OBSIDIAN
+			if (e.getAction() == Action.RIGHT_CLICK_BLOCK
 				&& e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER) {
 				//Structure 2D top-down representation
 				//
@@ -58,8 +58,9 @@ public class ItemsListener implements Listener {
 
 
 
-				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
-					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER ) { // holding white wool or paper
+				if ((e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
+					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER)
+					&& e.getClickedBlock().getType() == Material.CRYING_OBSIDIAN ) { // holding white wool or paper
 					ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 					if(item.getItemMeta()==null){
 						return;
@@ -112,9 +113,10 @@ public class ItemsListener implements Listener {
 					else if (
 							item.getItemMeta().hasCustomModelData() &&
 							item.getItemMeta().getCustomModelData() == 14803 &&
-							item.getType() == Material.PAPER
+							item.getType() == Material.PAPER &&
+							e.getClickedBlock().getType() == Material.TINTED_GLASS
 					){
-						if (blazeKingSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+						if (blazeKingSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
 							e.getPlayer().sendMessage("You have already sacrificed to the altar today...");
 							e.setCancelled(true);
 							return;
@@ -123,6 +125,11 @@ public class ItemsListener implements Listener {
 						if (!blazeKingActiveAltarLocations.containsKey(e.getClickedBlock().getLocation())){
 							blazeKingActiveAltarLocations.put(e.getClickedBlock().getLocation(), 0);
 						}
+
+
+
+
+
 					}
 				}
 			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
