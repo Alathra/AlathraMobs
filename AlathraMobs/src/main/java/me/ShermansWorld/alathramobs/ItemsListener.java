@@ -233,10 +233,18 @@ public class ItemsListener implements Listener {
 	private boolean structureCheck(HashMap<Integer, char[][]> structureMap, HashMap<Character, Material> materialHashMap,
 								   Location centerLoc, int arrayOriginLayer, int arrayCenterBlockX, int arrayCenterBlockY){
 		if(!structureMap.containsKey(arrayOriginLayer)) throw new IllegalArgumentException("Origin Layer outside of structure Map");
-		for(int i = 0; i < structureMap.keySet().size(); i++){
+		int length;
+		int index = 0;
 
+		// TODO: need to add checks to ensure the structure information is valid
+		for(char[][] layer: structureMap.values()){
+			if (index == 0){
+				length = layer[0].length;
+			}
+
+
+			index++;
 		}
-
 
 		return false;
 	}
