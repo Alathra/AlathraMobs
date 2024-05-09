@@ -32,30 +32,12 @@ public class ItemsListener implements Listener {
 		if (e.getHand() == EquipmentSlot.HAND) {
 			if(e.getClickedBlock()==null) return;
 			if(e.getClickedBlock().getLocation().getWorld()==null) return;
-			if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.CRYING_OBSIDIAN
-				&& e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER) {
-				//Structure 2D top-down representation
-				//
-				// G
-				//GCG
-				// G
-				//
-				// G = Gold Block, C = Crying Obsidian
-				// Also makes there be atleast 2 air above the center block
+			if (e.getAction() == Action.RIGHT_CLICK_BLOCK
+				) {
 
 				double clickedBlockX = e.getClickedBlock().getX();
 				double clickedBlockY = e.getClickedBlock().getY();
 				double clickedBlockZ = e.getClickedBlock().getZ();
-
-
-				HashMap<Location, Material> locationMaterialPairs = new HashMap<>();
-				locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX+1, clickedBlockY, clickedBlockZ), Material.GOLD_BLOCK);
-				locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX-1, clickedBlockY, clickedBlockZ), Material.GOLD_BLOCK);
-				locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ+1), Material.GOLD_BLOCK);
-				locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ-1), Material.GOLD_BLOCK);
-				locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+1, clickedBlockZ), Material.AIR);
-				locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+2, clickedBlockZ), Material.AIR);
-
 
 
 				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
@@ -70,7 +52,27 @@ public class ItemsListener implements Listener {
 							//Covers White wool with model data 301, for compatibility with the original items
 						|| (item.getItemMeta().getCustomModelData() == 14802 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER)
 							//Covers Paper with model data 14802, for the new textured item
-						)) {
+						)
+						&& e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER
+						&& (e.getClickedBlock().getType() == Material.CRYING_OBSIDIAN)
+					) {
+						//Structure 2D top-down representation
+						//
+						// G
+						//GCG
+						// G
+						//
+						// G = Gold Block, C = Crying Obsidian
+						// Also makes there be atleast 2 air above the center block
+
+						HashMap<Location, Material> locationMaterialPairs = new HashMap<>();
+						locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX+1, clickedBlockY, clickedBlockZ), Material.GOLD_BLOCK);
+						locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX-1, clickedBlockY, clickedBlockZ), Material.GOLD_BLOCK);
+						locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ+1), Material.GOLD_BLOCK);
+						locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ-1), Material.GOLD_BLOCK);
+						locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+1, clickedBlockZ), Material.AIR);
+						locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY+2, clickedBlockZ), Material.AIR);
+
 							if(shawnSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
 								e.getPlayer().sendMessage("You have already summoned them today...");
 								e.setCancelled(true);
@@ -112,7 +114,9 @@ public class ItemsListener implements Listener {
 					else if (
 							item.getItemMeta().hasCustomModelData() &&
 							item.getItemMeta().getCustomModelData() == 14803 &&
-							item.getType() == Material.PAPER
+							item.getType() == Material.PAPER &&
+							e.getClickedBlock().getType() == Material.TINTED_GLASS &&
+							e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER
 					){
 						if (blazeKingSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
 							e.getPlayer().sendMessage("You have already sacrificed to the altar today...");
@@ -123,6 +127,87 @@ public class ItemsListener implements Listener {
 						if (!blazeKingActiveAltarLocations.containsKey(e.getClickedBlock().getLocation())){
 							blazeKingActiveAltarLocations.put(e.getClickedBlock().getLocation(), 0);
 						}
+
+						char[][] layer3 = {
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'}
+						};
+
+						char[][] layer2 = {
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'}
+						};
+
+						char[][] layer1 = {
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'}
+						};
+
+						char[][] layer0 = {
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','L','A','L','A','A','A'},
+								{'A','A','A','A','T','A','A','A','A'},
+								{'A','A','A','L','A','L','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','A','A','A','A','A','A','A','A'}
+						};
+
+						char[][] layerN1 = {
+								{'A','A','A','F','R','F','A','A','A'},
+								{'A','F','A','A','A','A','A','F','A'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'F','A','A','E','D','E','A','A','F'},
+								{'R','A','A','D','D','D','A','A','R'},
+								{'F','A','A','E','D','E','A','A','F'},
+								{'A','A','A','A','A','A','A','A','A'},
+								{'A','F','A','A','A','A','A','F','A'},
+								{'A','A','A','F','R','F','A','A','A'}
+						};
+
+						HashMap<Character, Material> characterMaterialHashMap = new HashMap<>();
+						characterMaterialHashMap.put('A', Material.AIR);
+						characterMaterialHashMap.put('R', Material.END_ROD);
+						characterMaterialHashMap.put('L', Material.LIGHTNING_ROD);
+						characterMaterialHashMap.put('T', Material.TINTED_GLASS);
+						characterMaterialHashMap.put('E', Material.EMERALD_BLOCK);
+						characterMaterialHashMap.put('D', Material.DIAMOND_BLOCK);
+						characterMaterialHashMap.put('F', Material.SOUL_CAMPFIRE);
+
+						HashMap<Integer, char[][]> blazeKingStructure = new HashMap<>();
+						blazeKingStructure.put(3, layer3);
+						blazeKingStructure.put(2, layer2);
+						blazeKingStructure.put(1, layer1);
+						blazeKingStructure.put(0, layer0);
+						blazeKingStructure.put(-1, layerN1);
+
+						Location centerLocation = new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ);
+
+
+
 					}
 				}
 			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
@@ -136,7 +221,7 @@ public class ItemsListener implements Listener {
 
 					if ((item.getItemMeta().getCustomModelData() == 301 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL)
 						//Covers White wool with model data 301, for compatibility with the original items
-						|| (item.getItemMeta().getCustomModelData() == 14802 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER)
+						|| ((item.getItemMeta().getCustomModelData() == 14802 || item.getItemMeta().getCustomModelData() == 14803) && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER)
 						//Covers Paper with model data 14802, for the new textured item
 					) {
 						e.setCancelled(true);
@@ -145,4 +230,15 @@ public class ItemsListener implements Listener {
 			}
 		}
 	}
+	private boolean structureCheck(HashMap<Integer, char[][]> structureMap, HashMap<Character, Material> materialHashMap,
+								   Location centerLoc, int arrayOriginLayer, int arrayCenterBlockX, int arrayCenterBlockY){
+		if(!structureMap.containsKey(arrayOriginLayer)) throw new IllegalArgumentException("Origin Layer outside of structure Map");
+		for(int i = 0; i < structureMap.keySet().size(); i++){
+
+		}
+
+
+		return false;
+	}
 }
+
