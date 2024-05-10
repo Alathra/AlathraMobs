@@ -9,10 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ItemsListener implements Listener {
 	/**
@@ -233,20 +230,45 @@ public class ItemsListener implements Listener {
 	private boolean structureCheck(HashMap<Integer, char[][]> structureMap, HashMap<Character, Material> materialHashMap,
 								   Location centerLoc, int arrayOriginLayer, int arrayCenterBlockX, int arrayCenterBlockY){
 		if(!structureMap.containsKey(arrayOriginLayer)) throw new IllegalArgumentException("Origin Layer outside of structure Map");
-		int length;
+		int length = 0;
 		int index = 0;
 
-		// TODO: need to add checks to ensure the structure information is valid
 		for(char[][] layer: structureMap.values()){
 			if (index == 0){
 				length = layer[0].length;
 			}
-
-
+			else {
+				if (layer.length != length){
+					throw new IllegalArgumentException("Layer Size is not equal");
+				}
+				for(char[] row : layer){
+					if (row.length != length){
+						throw new IllegalArgumentException("Layer Row Size is not a square.");
+					}
+				}
+			}
 			index++;
 		}
 
+
+
+
+
 		return false;
+	}
+
+	private int getXOffset(int length, int arrayCenterBlockX, int position){
+		if (position >= length || position < 0 || arrayCenterBlockX >= length || arrayCenterBlockX < 0){
+			throw new IllegalArgumentException("Position or Array Center outside length");
+		}
+		return position-arrayCenterBlockX;
+	}
+
+	private int getZOffset(int length, int arrayCenterBlockZ, int position){
+		if (position >= length || position < 0 || arrayCenterBlockZ >= length || arrayCenterBlockZ < 0){
+			throw new IllegalArgumentException("Position or Array Center outside length");
+		}
+		return position-arrayCenterBlockZ;
 	}
 }
 
