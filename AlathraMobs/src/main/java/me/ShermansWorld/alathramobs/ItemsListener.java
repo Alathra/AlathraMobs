@@ -250,9 +250,18 @@ public class ItemsListener implements Listener {
 			index++;
 		}
 
+		for (Map.Entry<Integer, char[][]> entry: structureMap.entrySet()){
+			for(int x = 0; x < length; x++){
+				for (int z = 0; z < length; z++){
 
 
 
+
+				}
+			}
+
+
+		}
 
 		return false;
 	}
