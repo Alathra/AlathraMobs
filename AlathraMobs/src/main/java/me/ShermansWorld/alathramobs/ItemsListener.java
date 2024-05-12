@@ -227,8 +227,10 @@ public class ItemsListener implements Listener {
 			}
 		}
 	}
+
+
 	private boolean structureCheck(HashMap<Integer, char[][]> structureMap, HashMap<Character, Material> materialHashMap,
-								   Location centerLoc, int arrayOriginLayer, int arrayCenterBlockX, int arrayCenterBlockY){
+								   Location centerLoc, int arrayOriginLayer, int arrayCenterBlockX, int arrayCenterBlockZ){
 		if(!structureMap.containsKey(arrayOriginLayer)) throw new IllegalArgumentException("Origin Layer outside of structure Map");
 		int length = 0;
 		int index = 0;
@@ -253,17 +255,15 @@ public class ItemsListener implements Listener {
 		for (Map.Entry<Integer, char[][]> entry: structureMap.entrySet()){
 			for(int x = 0; x < length; x++){
 				for (int z = 0; z < length; z++){
-
-
-
-
+					Location locationToBeChecked = new Location(centerLoc.getWorld(), centerLoc.getX()+getXOffset(length, arrayCenterBlockX, x), centerLoc.getY()+entry.getKey(), centerLoc.getZ()+getZOffset(length, arrayCenterBlockZ, z));
+					if (locationToBeChecked.getBlock().getType() != materialHashMap.get(entry.getValue()[x][z])){
+						return false;
+					}
 				}
 			}
-
-
 		}
 
-		return false;
+		return true;
 	}
 
 	private int getXOffset(int length, int arrayCenterBlockX, int position){
