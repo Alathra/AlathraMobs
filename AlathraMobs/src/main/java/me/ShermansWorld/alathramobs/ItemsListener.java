@@ -203,6 +203,11 @@ public class ItemsListener implements Listener {
 
 						Location centerLocation = new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ);
 
+						if(!structureCheck(blazeKingStructure, characterMaterialHashMap, centerLocation, 4, 4)){
+							e.getPlayer().sendMessage("The structure sits still.");
+							return;
+						}
+
 
 
 					}
@@ -229,9 +234,19 @@ public class ItemsListener implements Listener {
 	}
 
 
+	/**
+	 * Checks a 3d area of locations to ensure that it matches a data defined structure
+	 *
+	 * @param structureMap A hashmap of y-level offsets and 2d char arrays
+	 * @param materialHashMap
+	 * @param centerLoc
+	 * @param arrayCenterBlockX
+	 * @param arrayCenterBlockZ
+	 * @return
+	 */
 	private boolean structureCheck(HashMap<Integer, char[][]> structureMap, HashMap<Character, Material> materialHashMap,
-								   Location centerLoc, int arrayOriginLayer, int arrayCenterBlockX, int arrayCenterBlockZ){
-		if(!structureMap.containsKey(arrayOriginLayer)) throw new IllegalArgumentException("Origin Layer outside of structure Map");
+								   Location centerLoc, int arrayCenterBlockX, int arrayCenterBlockZ){
+		if(!structureMap.containsKey(0)) throw new IllegalArgumentException("Origin Layer outside of structure Map");
 		int length = 0;
 		int index = 0;
 
@@ -256,13 +271,13 @@ public class ItemsListener implements Listener {
 			for(int x = 0; x < length; x++){
 				for (int z = 0; z < length; z++){
 					Location locationToBeChecked = new Location(centerLoc.getWorld(), centerLoc.getX()+getXOffset(length, arrayCenterBlockX, x), centerLoc.getY()+entry.getKey(), centerLoc.getZ()+getZOffset(length, arrayCenterBlockZ, z));
-					if (locationToBeChecked.getBlock().getType() != materialHashMap.get(entry.getValue()[x][z])){
+					if (entry.getValue()[x][z] == '*') continue; // * is a wildcard, for any material
+					if (locationToBeChecked.getBlock().getType() != materialHashMap.get(entry.getValue()[x][z])){ // Checks that the location material matches the material on the spot on the 2d array
 						return false;
 					}
 				}
 			}
 		}
-
 		return true;
 	}
 
