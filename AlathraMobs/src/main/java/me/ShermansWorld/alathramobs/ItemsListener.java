@@ -237,12 +237,12 @@ public class ItemsListener implements Listener {
 	/**
 	 * Checks a 3d area of locations to ensure that it matches a data defined structure
 	 *
-	 * @param structureMap A hashmap of y-level offsets and 2d char arrays
-	 * @param materialHashMap
-	 * @param centerLoc
-	 * @param arrayCenterBlockX
-	 * @param arrayCenterBlockZ
-	 * @return
+	 * @param structureMap A hashmap of y-level offsets and 2d char arrays used to define the structure
+	 * @param materialHashMap Hashmap that maps characters to materials
+	 * @param centerLoc the block at the center of the structure, the one used to activate the ritual
+	 * @param arrayCenterBlockX Defines the x position of the center block in the array
+	 * @param arrayCenterBlockZ Defines the z position of the center block in the array
+	 * @return true if the structure is correct, false otherwise
 	 */
 	private boolean structureCheck(HashMap<Integer, char[][]> structureMap, HashMap<Character, Material> materialHashMap,
 								   Location centerLoc, int arrayCenterBlockX, int arrayCenterBlockZ){
