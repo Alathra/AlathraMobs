@@ -16,8 +16,9 @@ public class ItemsListener implements Listener {
 	 * A list of players who've summoned shawn
 	 */
 	ArrayList<UUID> shawnSummoners = new ArrayList<>();
-	ArrayList<UUID> blazeKingSummoners = new ArrayList<>();
-	HashMap<Location, Integer> blazeKingActiveAltarLocations = new HashMap<>();
+	ArrayList<UUID> blazeLordSummoners = new ArrayList<>();
+	HashMap<Location, Integer> blazeLordActiveAltarLocations = new HashMap<>();
+	final int blazeLordSummonerAmount = 3;
 
 
 	/**
@@ -115,14 +116,14 @@ public class ItemsListener implements Listener {
 							e.getClickedBlock().getType() == Material.TINTED_GLASS &&
 							e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER
 					){
-						if (blazeKingSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+						if (blazeLordSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
 							e.getPlayer().sendMessage("You have already sacrificed to the altar today...");
 							e.setCancelled(true);
 							return;
 						}
 
-						if (!blazeKingActiveAltarLocations.containsKey(e.getClickedBlock().getLocation())){
-							blazeKingActiveAltarLocations.put(e.getClickedBlock().getLocation(), 0);
+						if (!blazeLordActiveAltarLocations.containsKey(e.getClickedBlock().getLocation())){
+							blazeLordActiveAltarLocations.put(e.getClickedBlock().getLocation(), 0);
 						}
 
 						char[][] layer3 = {
@@ -208,8 +209,28 @@ public class ItemsListener implements Listener {
 							return;
 						}
 
+						if(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) < blazeLordSummonerAmount){ // Structure is valid, but not enough power
+							e.getPlayer().sendMessage("The structure's power grows... (%s/%d)".formatted(e.getClickedBlock().getLocation(), blazeLordSummonerAmount));
+							blazeLordActiveAltarLocations.replace(e.getClickedBlock().getLocation(), blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation())+1);
+							e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getItem().getAmount() > 1 ? e.getItem().getAmount() - 1 : 0);
+							blazeLordSummoners.add(e.getPlayer().getUniqueId());
+							return;
+						}
+						else if(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) == blazeLordSummonerAmount){ // Structure is valid, enough players have sacrificed
+							blazeLordActiveAltarLocations.remove(e.getClickedBlock().getLocation());
 
+							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
+								Sound.ENTITY_SHEEP_HURT, 5F, 1F);
+							e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
+							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 5);
 
+							Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
+							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons Shawn 1 block above the center of the structure
+							MobsUtil.spawnMob("Blaze_Lord", blazeLordSummonLocation);
+
+							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
+								Sound.ENTITY_SHEEP_HURT, 5F, 5F);
+						}
 					}
 				}
 			} else if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
