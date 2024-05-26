@@ -210,22 +210,22 @@ public class ItemsListener implements Listener {
 						}
 
 						if(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) < blazeLordSummonerAmount){ // Structure is valid, but not enough power
-							e.getPlayer().sendMessage("The structure's power grows... (%s/%d)".formatted(e.getClickedBlock().getLocation(), blazeLordSummonerAmount));
+							e.getPlayer().sendMessage("The structure's power grows... (%s/%d)".formatted(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) + 1, blazeLordSummonerAmount));
 							blazeLordActiveAltarLocations.replace(e.getClickedBlock().getLocation(), blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation())+1);
 							e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getItem().getAmount() > 1 ? e.getItem().getAmount() - 1 : 0);
 							blazeLordSummoners.add(e.getPlayer().getUniqueId());
 							return;
 						}
-						else if(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) == blazeLordSummonerAmount){ // Structure is valid, enough players have sacrificed
+						else if(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) >= blazeLordSummonerAmount - 1){ // Structure is valid, enough players have sacrificed
 							blazeLordActiveAltarLocations.remove(e.getClickedBlock().getLocation());
 
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 1F);
 							e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
-							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 5);
+							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 8);
 
 							Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
-							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons Shawn 1 block above the center of the structure
+							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons The Blaze Lord 1 block above the center of the structure
 							MobsUtil.spawnMob("Blaze_Lord", blazeLordSummonLocation);
 
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
