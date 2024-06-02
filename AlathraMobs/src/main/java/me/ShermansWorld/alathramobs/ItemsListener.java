@@ -225,7 +225,7 @@ public class ItemsListener implements Listener {
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 1F);
 							e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
-							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 10);
+							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 8);
 
 							Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
 							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons The Blaze Lord 1 block above the center of the structure
