@@ -221,6 +221,7 @@ public class ItemsListener implements Listener {
 						}
 						else if(blazeLordActiveAltarLocations.get(e.getClickedBlock().getLocation()) >= blazeLordSummonerAmount - 1){ // Structure is valid, enough players have sacrificed
 							blazeLordActiveAltarLocations.remove(e.getClickedBlock().getLocation());
+							blazeLordSummoners.add(e.getPlayer().getUniqueId());
 
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 1F);
