@@ -115,16 +115,38 @@ public class ItemsListener implements Listener {
 							item.getType() == Material.PAPER &&
 							e.getClickedBlock().getType() == Material.TINTED_GLASS &&
 							e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER
-					){
-						if (blazeLordSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+					) {
+						if (blazeLordSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
 							e.getPlayer().sendMessage("You have already sacrificed to the altar today...");
 							e.setCancelled(true);
+							return;
+						}
+
+						if (e.getClickedBlock().getLocation().getBlockY() > 50){
+							e.getPlayer().sendMessage("Seek Higher ground.");
+							return;
+						}
+
+						if (e.getClickedBlock().getLocation().getBlockY() < 130) {
+							e.getPlayer().sendMessage("Seek Lower ground.");
 							return;
 						}
 
 						if (!blazeLordActiveAltarLocations.containsKey(e.getClickedBlock().getLocation())){
 							blazeLordActiveAltarLocations.put(e.getClickedBlock().getLocation(), 0);
 						}
+
+						char[][] layer4 = {
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'},
+							{'A','A','A','A','A','A','A','A','A'}
+						};
 
 						char[][] layer3 = {
 								{'A','A','A','A','A','A','A','A','A'},
@@ -196,6 +218,10 @@ public class ItemsListener implements Listener {
 						characterMaterialHashMap.put('F', Material.SOUL_CAMPFIRE);
 
 						HashMap<Integer, char[][]> blazeKingStructure = new HashMap<>();
+						for(int m = 25; m > 4; m--){
+							blazeKingStructure.put(m, layer4);
+						}
+						blazeKingStructure.put(4, layer4);
 						blazeKingStructure.put(3, layer3);
 						blazeKingStructure.put(2, layer2);
 						blazeKingStructure.put(1, layer1);
@@ -226,7 +252,7 @@ public class ItemsListener implements Listener {
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 1F);
 							e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
-							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 8);
+							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 6);
 
 							Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
 							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons The Blaze Lord 1 block above the center of the structure
@@ -319,5 +345,6 @@ public class ItemsListener implements Listener {
 		}
 		return position-arrayCenterBlockZ;
 	}
+
 }
 
