@@ -122,12 +122,12 @@ public class ItemsListener implements Listener {
 							return;
 						}
 
-						if (e.getClickedBlock().getLocation().getBlockY() > 50){
+						if (e.getClickedBlock().getLocation().getBlockY() < 40){
 							e.getPlayer().sendMessage("Seek Higher ground.");
 							return;
 						}
 
-						if (e.getClickedBlock().getLocation().getBlockY() < 130) {
+						if (e.getClickedBlock().getLocation().getBlockY() > 130) {
 							e.getPlayer().sendMessage("Seek Lower ground.");
 							return;
 						}
