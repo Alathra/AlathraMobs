@@ -8,6 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
@@ -252,7 +253,8 @@ public class ItemsListener implements Listener {
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 1F);
 							e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
-							e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 6);
+
+							Bukkit.getScheduler().scheduleSyncDelayedTask(AlathraMobs.getInstance(), () -> e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 6), 50L);
 
 							Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
 							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons The Blaze Lord 1 block above the center of the structure
