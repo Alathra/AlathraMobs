@@ -1,9 +1,10 @@
 name: AlathraMobs
 main: me.ShermansWorld.alathramobs.AlathraMobs
-version: 1.2.1
+version: 1.3
 api-version: 1.19
 author: ShermansWorld
-softdepend: [MythicMobs, RTUBiomeLib]
+depend: [MythicMobs]
+softdepend: [RTUBiomeLib, MythicDungeons]
 description: A random spawn system for MythicMobs with Terra hooks
 commands:
   alathramobs:

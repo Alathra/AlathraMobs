@@ -25,6 +25,12 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+		<repository>
+			<id>aestrus-releases</id>
+			<name>Aestrus's Repository</name>
+			<url>https://maven.aestrus.io/releases</url>
+		</repository>
+
 	</repositories>
 	<dependencies>
 		<!--This adds the Spigot API artifact to the build -->
@@ -52,5 +58,12 @@
 			<artifactId>Towny</artifactId>
 			<version>0.98.6.0</version>
 		</dependency>
+		<dependency>
+			<groupId>net.playavalon</groupId>
+			<artifactId>MythicDungeons</artifactId>
+			<version>1.3.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 </project>

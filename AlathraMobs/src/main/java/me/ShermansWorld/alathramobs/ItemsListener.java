@@ -1,7 +1,11 @@
 package me.ShermansWorld.alathramobs;
 
 import me.ShermansWorld.alathramobs.util.MobsUtil;
+import me.ShermansWorld.alathramobs.util.Util;
+import net.playavalon.mythicdungeons.MythicDungeons;
+import net.playavalon.mythicdungeons.player.MythicPlayer;
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -259,6 +263,18 @@ public class ItemsListener implements Listener {
 							Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
 							blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons The Blaze Lord 1 block above the center of the structure
 							MobsUtil.spawnMob("Blaze_Lord", blazeLordSummonLocation);
+
+							final String dungeonName = "";
+							
+							AlathraMobs.dungeons.createParty(e.getPlayer());
+
+							AlathraMobs.dungeons.initiateDungeonForPlayer(e.getPlayer(), dungeonName);
+							
+							for (Player p : Util.getPlayersInRadius(e.getPlayer().getLocation(), 9)){
+								AlathraMobs.dungeons.inviteToParty(e.getPlayer(), p);
+								AlathraMobs.dungeons.acceptPartyInvite(p);
+								AlathraMobs.dungeons.getDungeonInstance(e.getPlayer()).addPlayer(new MythicPlayer(p));
+							}
 
 							e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 								Sound.ENTITY_SHEEP_HURT, 5F, 5F);
