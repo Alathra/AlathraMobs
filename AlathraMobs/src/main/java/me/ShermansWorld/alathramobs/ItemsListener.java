@@ -187,7 +187,7 @@ public class ItemsListener implements Listener {
 						} else if (regionNames.contains("2-2")) {
 							MobsUtil.spawnMob("rb_spider_swarm", regionalBossSummonLocation);
 						} else if (regionNames.contains("2-3")) {
-							MobsUtil.spawnMob("rb_spider_tossing", regionalBossSummonLocation);
+							MobsUtil.spawnMob("rb_spider_invisible", regionalBossSummonLocation);
 						} else if (regionNames.contains("3-1")) {
 							MobsUtil.spawnMob("rb_creeper_imprisoning", regionalBossSummonLocation);
 						} else if (regionNames.contains("3-2")) {
