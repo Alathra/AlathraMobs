@@ -153,11 +153,6 @@ public class ItemsListener implements Listener {
 							return;
 						}
 
-						if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
-							e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getPlayer().getInventory().getItemInMainHand().getAmount() - 1);
-							regionalBossSummoners.add(e.getPlayer().getUniqueId());
-						}
-
 						Location regionalBossSummonLocation = e.getClickedBlock().getLocation();
 						regionalBossSummonLocation.setY(regionalBossSummonLocation.getBlockY()+1.0);
 
@@ -215,7 +210,10 @@ public class ItemsListener implements Listener {
 							MobsUtil.spawnMob("rb_default", regionalBossSummonLocation);
 						}
 
-
+						if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+							e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getPlayer().getInventory().getItemInMainHand().getAmount() - 1);
+							regionalBossSummoners.add(e.getPlayer().getUniqueId());
+						}
 
 
 					}
