@@ -1,5 +1,6 @@
 package me.ShermansWorld.alathramobs;
 
+import com.sk89q.worldguard.WorldGuard;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,8 @@ public class AlathraMobs extends JavaPlugin {
 	}
 	
 	public static Timers timer = new Timers();
+
+	public static WorldGuard worldGuard = null;
 	
 	@Override
 	public void onEnable() {
@@ -33,6 +36,13 @@ public class AlathraMobs extends JavaPlugin {
 		timer.startFireGiantTimer();
 		timer.startIceGiantTimer();
 		timer.startStrongGiantTimer();
+
+		if(pluginManager.isPluginEnabled("WorldGuard")) {
+			worldGuard = WorldGuard.getInstance();
+		} else {
+			getLogger().warning("WorldGuard not found, disabling plugin.");
+			pluginManager.disablePlugin(this);
+		}
 	}
 
 }
