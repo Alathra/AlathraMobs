@@ -241,7 +241,10 @@ public class ItemsListener implements Listener {
 							Bukkit.getLogger().log(Level.INFO, "Spawned rb_default for " + e.getPlayer().getDisplayName());
 						}
 
-
+						if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+							e.getPlayer().getInventory().getItemInMainHand().setAmount(e.getPlayer().getInventory().getItemInMainHand().getAmount() - 1);
+							regionalBossSummoners.add(e.getPlayer().getUniqueId());
+						}
 
 
 					}
