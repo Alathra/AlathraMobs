@@ -1,5 +1,6 @@
 package me.ShermansWorld.alathramobs;
 
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
@@ -47,7 +48,8 @@ public class ItemsListener implements Listener {
 
 
 				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
-					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER ) { // holding white wool or paper
+					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER
+					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COPPER_INGOT) { // holding white wool, paper, or copper ingot
 					ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 					if(item.getItemMeta()==null){
 						return;
@@ -69,11 +71,17 @@ public class ItemsListener implements Listener {
 							item.getItemMeta().getCustomModelData()==3 &&
 							item.getType() == Material.COPPER_INGOT &&
 							e.getClickedBlock().getType() == Material.GLOWSTONE &&
-							e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NORMAL
+							e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NORMAL &&
+							e.getClickedBlock().getLocation().getWorld().getName().equals("World-o")
 					) {
-						if(regionalBossSummoners.contains(e.getPlayer().getUniqueId())){
+						if(regionalBossSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
 							e.getPlayer().sendMessage("You have already summoned them today...");
 							e.setCancelled(true);
+							return;
+						}
+
+						if (TownyUtil.isLocationInTown(e.getClickedBlock().getLocation())) {
+							e.getPlayer().sendMessage("You need to leave town to summon a regional boss.");
 							return;
 						}
 
@@ -155,16 +163,13 @@ public class ItemsListener implements Listener {
 							return;
 						}
 
-						if (!TownyUtil.isLocationInTown(e.getClickedBlock().getLocation())) {
-							e.getPlayer().sendMessage("You must be in a town to summon a regional boss.");
-							return;
-						}
+
 
 						Location regionalBossSummonLocation = e.getClickedBlock().getLocation();
 						regionalBossSummonLocation.setY(regionalBossSummonLocation.getBlockY()+1.0);
 
 						RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-						RegionManager regions = container.get((com.sk89q.worldedit.world.World) e.getClickedBlock().getWorld());
+						RegionManager regions = container.get(WorldGuard.getInstance().getPlatform().getMatcher().getWorldByName(e.getClickedBlock().getWorld().getName()));
 						if (regions == null) {
 							Bukkit.getLogger().log(Level.SEVERE, "RegionManager is null in world, please ensure this is correct behavior in world " + e.getClickedBlock().getWorld().getName());
 
