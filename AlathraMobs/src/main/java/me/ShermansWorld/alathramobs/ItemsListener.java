@@ -6,6 +6,7 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import me.ShermansWorld.alathramobs.util.MobsUtil;
+import me.ShermansWorld.alathramobs.util.TownyUtil;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -149,7 +150,13 @@ public class ItemsListener implements Listener {
 						Location centerLocation = new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ);
 
 						if(!structureCheck(regionalBossStructure, characterMaterialHashMap, centerLocation, 4, 4)){
+							Bukkit.getLogger().log(Level.INFO, e.getPlayer().getDisplayName() + " tried to summon a regional boss, but the structure was incorrect.");
 							e.getPlayer().sendMessage("The structure sits still.");
+							return;
+						}
+
+						if (!TownyUtil.isLocationInTown(e.getClickedBlock().getLocation())) {
+							e.getPlayer().sendMessage("You must be in a town to summon a regional boss.");
 							return;
 						}
 
@@ -179,40 +186,59 @@ public class ItemsListener implements Listener {
 							regionNames.add(region.getId());
 						}
 
+						Bukkit.getLogger().log(Level.INFO, e.getPlayer().getDisplayName() + " summoned a regional boss in region " + regionNames.toString() + "at location " + regionalBossSummonLocation.toString());
+
 						if(regionNames.contains("1-1")) {
 							MobsUtil.spawnMob("rb_zombie_parent", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_zombie_parent for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("1-2")) {
 							MobsUtil.spawnMob("rb_zombie_vomit", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_zombie_vomit for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("1-3")) {
 							MobsUtil.spawnMob("rb_zombie_starving", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_zombie_starving for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("1-4")) {
 							MobsUtil.spawnMob("rb_zombie_elusive", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_zombie_elusive for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("2-1")) {
 							MobsUtil.spawnMob("rb_spider_swapping", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_spider_swapping for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("2-2")) {
 							MobsUtil.spawnMob("rb_spider_swarm", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_spider_swarm for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("2-3")) {
-							MobsUtil.spawnMob("rb_spider_tossing", regionalBossSummonLocation);
+							MobsUtil.spawnMob("rb_spider_invisible", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_spider_invisible for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("3-1")) {
-							MobsUtil.spawnMob("rb_creeper_imprisoning", regionalBossSummonLocation);
+							MobsUtil.spawnMob("rb_creeper_hunter", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_creeper_hunter for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("3-2")) {
 							MobsUtil.spawnMob("rb_creeper_ticking_time", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_creeper_ticking_time for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("4-1")) {
 							MobsUtil.spawnMob("rb_slime_dragon", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_slime_dragon for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("4-2")) {
 							MobsUtil.spawnMob("rb_slime_stacked", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_slime_stacked for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("4-3")) {
 							MobsUtil.spawnMob("rb_slime_vampire", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_slime_vampire for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("5-1")) {
 							MobsUtil.spawnMob("rb_skeleton_bat_jocky", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_skeleton_bat_jocky for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("5-2")) {
 							MobsUtil.spawnMob("rb_skeleton_ravager", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_skeleton_ravager for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("5-3")) {
-							MobsUtil.spawnMob("rb_skeleton_stacked", regionalBossSummonLocation);
+							MobsUtil.spawnMob("rb_withered_skeleton", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_withered_skeleton for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("5-4")) {
-							MobsUtil.spawnMob("rb_skeleton_ram", regionalBossSummonLocation);
+							MobsUtil.spawnMob("rb_decayed_skeleton", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_decayed_skeleton for " + e.getPlayer().getDisplayName());
 						} else {
 							MobsUtil.spawnMob("rb_default", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_default for " + e.getPlayer().getDisplayName());
 						}
 
 
