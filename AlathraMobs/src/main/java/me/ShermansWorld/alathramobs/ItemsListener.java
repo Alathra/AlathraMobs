@@ -84,8 +84,10 @@ public class ItemsListener implements Listener {
 
 						try {
 							if (!TownyUtil.isLocationInTown(e.getClickedBlock().getLocation()) || !(TownyAPI.getInstance().getTownBlock(e.getClickedBlock().getLocation()) != null && TownyAPI.getInstance().getTownBlock(e.getClickedBlock().getLocation()).getTown().hasResident(e.getPlayer()))) {
-								e.getPlayer().sendMessage("You need to be in your town to summon a regional boss.");
-								return;
+								if (e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+									e.getPlayer().sendMessage("You need to be in your town to summon a regional boss.");
+									return;
+								}
 							}
 						} catch (NotRegisteredException |  NullPointerException error) {
 							e.getPlayer().sendMessage("You need to be in your town to summon a regional boss.");
