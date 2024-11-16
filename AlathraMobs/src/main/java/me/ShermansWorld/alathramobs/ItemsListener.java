@@ -225,14 +225,14 @@ public class ItemsListener implements Listener {
 							MobsUtil.spawnMob("rb_creeper_ticking_time", regionalBossSummonLocation);
 							Bukkit.getLogger().log(Level.INFO, "Spawned rb_creeper_ticking_time for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("4-1")) {
-							MobsUtil.spawnMob("rb_slime_dragon", regionalBossSummonLocation);
-							Bukkit.getLogger().log(Level.INFO, "Spawned rb_slime_dragon for " + e.getPlayer().getDisplayName());
+							MobsUtil.spawnMob("rb_witch_dragon", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_witch_dragon for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("4-2")) {
-							MobsUtil.spawnMob("rb_slime_stacked", regionalBossSummonLocation);
-							Bukkit.getLogger().log(Level.INFO, "Spawned rb_slime_stacked for " + e.getPlayer().getDisplayName());
+							MobsUtil.spawnMob("rb_witch_stacked", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_witch_stacked for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("4-3")) {
-							MobsUtil.spawnMob("rb_slime_vampire", regionalBossSummonLocation);
-							Bukkit.getLogger().log(Level.INFO, "Spawned rb_slime_vampire for " + e.getPlayer().getDisplayName());
+							MobsUtil.spawnMob("rb_witch_vampire", regionalBossSummonLocation);
+							Bukkit.getLogger().log(Level.INFO, "Spawned rb_witch_vampire for " + e.getPlayer().getDisplayName());
 						} else if (regionNames.contains("5-1")) {
 							MobsUtil.spawnMob("rb_skeleton_bat_jocky", regionalBossSummonLocation);
 							Bukkit.getLogger().log(Level.INFO, "Spawned rb_skeleton_bat_jocky for " + e.getPlayer().getDisplayName());
