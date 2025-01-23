@@ -342,7 +342,7 @@ public class ItemsListener implements Listener {
 		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 			Sound.ENTITY_SHEEP_HURT, 5F, 1F);
 		e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
-		e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 5);
+		e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 1.6F);
 
 		Location shawnSummonLocation = e.getClickedBlock().getLocation();
 		shawnSummonLocation.setY(shawnSummonLocation.getBlockY()+1.0); // summons Shawn 1 block above the center of the structure
@@ -491,7 +491,7 @@ public class ItemsListener implements Listener {
 				Sound.ENTITY_SHEEP_HURT, 5F, 1F);
 			e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(AlathraMobs.getInstance(), () -> e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 6), 50L);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(AlathraMobs.getInstance(), () -> e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 4), 50L);
 
 			Location blazeLordSummonLocation = e.getClickedBlock().getLocation();
 			blazeLordSummonLocation.setY(blazeLordSummonLocation.getBlockY()+1.0); // summons The Blaze Lord 1 block above the center of the structure
