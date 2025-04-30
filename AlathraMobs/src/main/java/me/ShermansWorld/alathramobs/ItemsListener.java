@@ -8,6 +8,7 @@ import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import me.ShermansWorld.alathramobs.util.BiomeUtil;
 import me.ShermansWorld.alathramobs.util.MobsUtil;
 import me.ShermansWorld.alathramobs.util.TownyUtil;
 import org.bukkit.*;
@@ -23,13 +24,21 @@ import java.util.logging.Level;
 
 public class ItemsListener implements Listener {
 	/**
-	 * A list of players who've summoned shawn
+	 * A list of players who've summoned shawn, blazelord, regional bosses, or giants
 	 */
 	ArrayList<UUID> shawnSummoners = new ArrayList<>();
 	ArrayList<UUID> blazeLordSummoners = new ArrayList<>();
 	ArrayList<UUID> regionalBossSummoners = new ArrayList<>();
+	ArrayList<UUID> strongGiantSummoners = new ArrayList<>();
+	List<String> strongGiantSummoningBiomes = Arrays.asList("terra:alathra/alathra/birch_forest_hills", "terra:alathra/alathra/dark_forest", "terra:alathra/alathra/flowering_forest", "terra:alathra/alathra/flowering_forest_hills", "terra:alathra/alathra/forest", "terra:alathra/alathra/forest_hills", "terra:alathra/alathra/highlands", "terra:alathra/alathra/large_monsoon_mountains", "terra:alathra/alathra/plains", "terra:alathra/alathra/prairie", "terra:alathra/alathra/sakura_mountains", "terra:alathra/alathra/shrublands", "terra:alathra/alathra/sunflower_plains", "terra:alathra/alathra/temperate_mountains");
+	ArrayList<UUID> iceGiantSummoners = new ArrayList<>();
+	List<String> iceGiantSummoningBiomes = Arrays.asList("terra:alathra/alathra/dry_temperate_white_mountains","terra:alathra/alathra/evergreen_forest","terra:alathra/alathra/frozen_marsh","terra:alathra/alathra/ice_spikes","terra:alathra/alathra/moorland","terra:alathra/alathra/mountains","terra:alathra/alathra/mushroom_hills","terra:alathra/alathra/redwood_forest_hills","terra:alathra/alathra/salt_flats","terra:alathra/alathra/snowy_meadow","terra:alathra/alathra/snowy_plains","terra:alathra/alathra/snowy_terraced_mountains","terra:alathra/alathra/steppe","terra:alathra/alathra/taiga","terra:alathra/alathra/taiga_hills","terra:alathra/alathra/tundra_hills");
+	ArrayList<UUID> fireGiantSummoners = new ArrayList<>();
+	List<String> fireGiantSummoningBiomes = Arrays.asList("terra:alathra/alathra/badlands_buttes","terra:alathra/alathra/bamboo_jungle_hills","terra:alathra/alathra/bamboo_jungle_mountains","terra:alathra/alathra/chaparral","terra:alathra/alathra/desert","terra:alathra/alathra/dry_rocky_bumpy_mountains","terra:alathra/alathra/dry_temperate_mountains","terra:alathra/alathra/dry_wild_highlands","terra:alathra/alathra/eucalyptus_forest","terra:alathra/alathra/jungle_hills","terra:alathra/alathra/jungle_mountains","terra:alathra/alathra/oak_savanna","terra:alathra/alathra/palm_beach","terra:alathra/alathra/palm_forest","terra:alathra/alathra/swamp","terra:alathra/alathra/wild_bumpy_mountainsterra","terra:alathra/alathra/xeric_low_hills","terra:alathra/alathra/xeric_mountains");
+	ArrayList<UUID> netherGiantSummoners = new ArrayList<>();
+
 	HashMap<Location, Integer> blazeLordActiveAltarLocations = new HashMap<>();
-	final int blazeLordSummonerAmount = 3;
+	final int blazeLordSummonerAmount = 1;
 
 
 	/**
@@ -51,7 +60,8 @@ public class ItemsListener implements Listener {
 
 				if (e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL
 					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.PAPER
-					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COPPER_INGOT) { // holding white wool, paper, or copper ingot
+					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.COPPER_INGOT
+					|| e.getPlayer().getInventory().getItemInMainHand().getType() == Material.FERMENTED_SPIDER_EYE) { // holding white wool, paper, or copper ingot
 					ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 					if(item.getItemMeta()==null){
 						return;
@@ -60,8 +70,11 @@ public class ItemsListener implements Listener {
 					if (isShawnItemAndBlock(e, item)
 					) {
 						summonShawn(e, clickedBlockX, clickedBlockY, clickedBlockZ, item);
-
-
+					}
+					else if (
+						isOverworldGiantItemAndBlock(e, item)
+					){
+						summonBlazeLord(e, clickedBlockX, clickedBlockY, clickedBlockZ);
 					}
 					else if (
 						isBlazeLordItemAndBlock(e, item)
@@ -279,6 +292,12 @@ public class ItemsListener implements Listener {
 		}
 	}
 
+	/**
+	 * Checks if the player has the appropriate item in hand and the block clicked is the correct type to spawn Shawn
+	 * @param e the player interaction event
+	 * @param item the item in hand
+	 * @return true if the item and block are correct, false otherwise
+	 */
 	private static boolean isShawnItemAndBlock(PlayerInteractEvent e, ItemStack item) {
 		return item.getItemMeta().hasCustomModelData() &&
 			((item.getItemMeta().getCustomModelData() == 301 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.WHITE_WOOL)
@@ -290,6 +309,12 @@ public class ItemsListener implements Listener {
 			&& (e.getClickedBlock().getType() == Material.CRYING_OBSIDIAN);
 	}
 
+	/**
+	 * Checks if the player has the appropriate item in hand and the block clicked is the correct type to spawn a Blaze Lord
+	 * @param e the player interaction event
+	 * @param item the item in hand
+	 * @return true if the item and block are correct, false otherwise
+	 */
 	private static boolean isBlazeLordItemAndBlock(PlayerInteractEvent e, ItemStack item) {
 		return item.getItemMeta().hasCustomModelData() &&
 			item.getItemMeta().getCustomModelData() == 14803 &&
@@ -298,6 +323,40 @@ public class ItemsListener implements Listener {
 			e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER;
 	}
 
+	/**
+	 * Checks if the player has the appropriate item in hand and the block clicked is the correct type to spawn an Overworld Giant
+	 * @param e the player interaction event
+	 * @param item the item in hand
+	 * @return true if the item and block are correct, false otherwise
+	 */
+	private static boolean isOverworldGiantItemAndBlock(PlayerInteractEvent e, ItemStack item) {
+		return item.getItemMeta().hasCustomModelData() &&
+			((item.getItemMeta().getCustomModelData() == 100 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.FERMENTED_SPIDER_EYE))
+			&& e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NORMAL
+			&& e.getClickedBlock().getType() == Material.GLOWSTONE;
+	}
+
+	/**
+	 * Checks if the player has the appropriate item in hand and the block clicked is the correct type to spawn a Nether Giant
+	 * @param e the player interaction event
+	 * @param item the item in hand
+	 * @return true if the item and block are correct, false otherwise
+	 */
+	private static boolean isNetherGiantItemAndBlock(PlayerInteractEvent e, ItemStack item) {
+		return item.getItemMeta().hasCustomModelData() &&
+			((item.getItemMeta().getCustomModelData() == 100 && e.getPlayer().getInventory().getItemInMainHand().getType() == Material.FERMENTED_SPIDER_EYE))
+			&& e.getClickedBlock().getLocation().getWorld().getEnvironment() == World.Environment.NETHER
+			&& e.getClickedBlock().getType() == Material.SHROOMLIGHT;
+	}
+
+	/**
+	 * Summons shawn at the clicked block location, if they haven't summoned them today and the structure is correct
+	 * @param e the player interaction event
+	 * @param clickedBlockX the x coordinate of the clicked block
+	 * @param clickedBlockY the y coordinate of the clicked block
+	 * @param clickedBlockZ the z coordinate of the clicked block
+	 * @param item the item in hand
+	 */
 	private void summonShawn(PlayerInteractEvent e, double clickedBlockX, double clickedBlockY, double clickedBlockZ, ItemStack item) {
 		//Structure 2D top-down representation
 		//
@@ -328,15 +387,7 @@ public class ItemsListener implements Listener {
 				return;
 			}
 		}
-		if(e.getPlayer().getGameMode() != GameMode.CREATIVE) {
-			// Removing the item
-			if (item.getAmount() > 1) {
-				item.setAmount(item.getAmount() - 1);
-				e.getPlayer().getInventory().setItemInMainHand(item);
-			} else {
-				e.getPlayer().getInventory().remove(item);
-			}
-		}
+		removeItemFromPlayer(e, item);
 		// Actually doing the summoning
 
 		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
@@ -351,8 +402,163 @@ public class ItemsListener implements Listener {
 			Sound.ENTITY_SHEEP_HURT, 5F, 5F);
 
 		shawnSummoners.add(e.getPlayer().getUniqueId()); //stops player from summoning multiple times a restart
+
+		e.getPlayer().sendMessage("You have summoned Shawn!");
 	}
 
+	/**
+	 *  Summons a Blaze Lord at the clicked block location, if they haven't summoned them today and the structure is correct
+	 * @param e the player interaction event
+	 * @param clickedBlockX the x coordinate of the clicked block
+	 * @param clickedBlockY the y coordinate of the clicked block
+	 * @param clickedBlockZ the z coordinate of the clicked block
+	 * @param item the item in hand
+	 */
+	private void summonOverworldGiant(PlayerInteractEvent e, double clickedBlockX, double clickedBlockY, double clickedBlockZ, ItemStack item) {
+		HashMap<Location, Material> locationMaterialPairs = new HashMap<>();
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX +1, clickedBlockY, clickedBlockZ), Material.MUD);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX -1, clickedBlockY, clickedBlockZ), Material.MUD);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ +1), Material.MUD);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ -1), Material.MUD);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY +1, clickedBlockZ), Material.AIR);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY +2, clickedBlockZ), Material.AIR);
+
+		for(Map.Entry<Location, Material> locationMaterialEntry: locationMaterialPairs.entrySet()){
+			if(locationMaterialEntry.getKey().getBlock().getType() != locationMaterialEntry.getValue()){
+				e.setCancelled(true);
+				return;
+			}
+		}
+
+		String bossId = null;
+
+
+		if(fireGiantSummoningBiomes.contains(BiomeUtil.getBiomeName(e.getPlayer()))){
+			if(fireGiantSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+				e.getPlayer().sendMessage("You have already summoned a Fire Giant today...");
+				e.setCancelled(true);
+				return;
+			}
+			removeItemFromPlayer(e, item);
+			fireGiantSummoners.add(e.getPlayer().getUniqueId());
+
+			bossId = "Fire_Giant";
+		}
+		else if(iceGiantSummoningBiomes.contains(BiomeUtil.getBiomeName(e.getPlayer()))){
+			if(iceGiantSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+				e.getPlayer().sendMessage("You have already summoned an Ice Giant today...");
+				e.setCancelled(true);
+				return;
+			}
+			removeItemFromPlayer(e, item);
+			iceGiantSummoners.add(e.getPlayer().getUniqueId());
+
+			bossId = "Ice_Giant";
+		}
+		else if(strongGiantSummoningBiomes.contains(BiomeUtil.getBiomeName(e.getPlayer()))){
+			if(strongGiantSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+				e.getPlayer().sendMessage("You have already summoned a Strong Giant today...");
+				e.setCancelled(true);
+				return;
+			}
+			removeItemFromPlayer(e, item);
+			strongGiantSummoners.add(e.getPlayer().getUniqueId());
+
+			bossId = "Strong_Giant";
+		}
+
+		if(bossId == null){
+			e.getPlayer().sendMessage("You cannot summon a Giant here.");
+			e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(), Sound.ENTITY_CAT_HISS, 5F, 1F);
+			return;
+		}
+
+		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
+			Sound.ENTITY_POLAR_BEAR_STEP, 5F, 1F);
+		e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
+		e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 1.6F);
+
+		Location bossSummonLocation = e.getClickedBlock().getLocation();
+		bossSummonLocation.setY(bossSummonLocation.getBlockY()+1.0); // summons Boss 1 block above the center of the structure
+		MobsUtil.spawnMob(bossId, bossSummonLocation);
+		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
+			Sound.ENTITY_POLAR_BEAR_STEP, 5F, 5F);
+
+		e.getPlayer().sendMessage("You have summoned a " + bossId + "!");
+	}
+
+	/**
+	 *  Summons a Nether Giant at the clicked block location, if they haven't summoned them today and the structure is correct
+	 * @param e the player interaction event
+	 * @param clickedBlockX the x coordinate of the clicked block
+	 * @param clickedBlockY the y coordinate of the clicked block
+	 * @param clickedBlockZ the z coordinate of the clicked block
+	 * @param item the item in hand
+	 */
+	private void summonNetherGiant(PlayerInteractEvent e, double clickedBlockX, double clickedBlockY, double clickedBlockZ, ItemStack item) {
+		HashMap<Location, Material> locationMaterialPairs = new HashMap<>();
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX +1, clickedBlockY, clickedBlockZ), Material.NETHER_BRICK);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX -1, clickedBlockY, clickedBlockZ), Material.NETHER_BRICK);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ +1), Material.NETHER_BRICK);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY, clickedBlockZ -1), Material.NETHER_BRICK);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY +1, clickedBlockZ), Material.AIR);
+		locationMaterialPairs.put(new Location(e.getClickedBlock().getWorld(), clickedBlockX, clickedBlockY +2, clickedBlockZ), Material.AIR);
+
+		for(Map.Entry<Location, Material> locationMaterialEntry: locationMaterialPairs.entrySet()){
+			if(locationMaterialEntry.getKey().getBlock().getType() != locationMaterialEntry.getValue()){
+				e.setCancelled(true);
+				return;
+			}
+		}
+
+		String bossId = null;
+
+		if(netherGiantSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE){
+			e.getPlayer().sendMessage("You have already summoned a Nether Giant today...");
+			e.setCancelled(true);
+			return;
+		}
+		removeItemFromPlayer(e, item);
+		netherGiantSummoners.add(e.getPlayer().getUniqueId());
+
+		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
+			Sound.ENTITY_GHAST_SCREAM, 5F, 1F);
+		e.getClickedBlock().getWorld().strikeLightningEffect(e.getClickedBlock().getLocation());
+		e.getClickedBlock().getWorld().createExplosion(e.getClickedBlock().getLocation(), 1.6F);
+
+		Location bossSummonLocation = e.getClickedBlock().getLocation();
+		bossSummonLocation.setY(bossSummonLocation.getBlockY()+1.0); // summons Boss 1 block above the center of the structure
+		MobsUtil.spawnMob("Nether_Giant", bossSummonLocation);
+		e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
+			Sound.ENTITY_GHAST_SCREAM, 5F, 5F);
+
+		e.getPlayer().sendMessage("You have summoned a Nether Giant!");
+	}
+
+	/**
+	 * Removes the item from the player's inventory
+	 * @param e the player interaction event
+	 * @param item the item to remove
+	 */
+	private static void removeItemFromPlayer(PlayerInteractEvent e, ItemStack item) {
+		if(e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+			// Removing the item
+			if (item.getAmount() > 1) {
+				item.setAmount(item.getAmount() - 1);
+				e.getPlayer().getInventory().setItemInMainHand(item);
+			} else {
+				e.getPlayer().getInventory().remove(item);
+			}
+		}
+	}
+
+	/**
+	 * Summons a Blaze Lord at the clicked block location, if they haven't summoned them today and the structure is correct
+	 * @param e the player interaction event
+	 * @param clickedBlockX the x coordinate of the clicked block
+	 * @param clickedBlockY the y coordinate of the clicked block
+	 * @param clickedBlockZ the z coordinate of the clicked block
+	 */
 	private void summonBlazeLord(PlayerInteractEvent e, double clickedBlockX, double clickedBlockY, double clickedBlockZ) {
 		if (blazeLordSummoners.contains(e.getPlayer().getUniqueId()) && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
 			e.getPlayer().sendMessage("You have already sacrificed to the altar today...");
@@ -499,6 +705,8 @@ public class ItemsListener implements Listener {
 
 			e.getPlayer().getWorld().playSound(e.getPlayer().getLocation(),
 				Sound.ENTITY_SHEEP_HURT, 5F, 5F);
+
+			e.getPlayer().sendMessage("You have summoned The Blaze Lord!");
 		}
 	}
 
